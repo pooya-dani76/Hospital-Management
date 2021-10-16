@@ -8,7 +8,7 @@ def WithoutDigit(text: str) -> bool:
     """Detect Given String Contains Digits or not
 
     Args:
-        text (str): [description]
+        text (str): String to be Controll
 
     Returns:
         bool: Returns ```True``` if ```text``` Without Digits Otherwise Returns ```False```  
@@ -39,6 +39,7 @@ def CheckHumanInput(NationalNumber: str, FirstName: str, LastName: str, Age: str
 
     Raises:
         TypeError: When ```NationalNumber``` Contains Characters
+        TypeError: When ```NationalNumber``` not 10 Digits
         TypeError: When ```FirstName``` Contains Digits
         TypeError: When ```LastName``` Contains Digits
         TypeError: When ```Age``` Contains Characters
@@ -46,6 +47,9 @@ def CheckHumanInput(NationalNumber: str, FirstName: str, LastName: str, Age: str
     if not WithoutChar(NationalNumber):
         raise TypeError(
             "National Number doesn't Should Be Contains Characters!")
+
+    if len(NationalNumber) != 10:
+        raise TypeError("National Number Should Be 10 Digits!")        
 
     if not WithoutDigit(FirstName):
         raise TypeError("First Name doesn't Should Be Contains Digits!")

@@ -51,7 +51,8 @@ class Doctor(Human):
         """
         return f'Dr.{self.FirstName} {self.LastName} , {self.Type}'
 
-    def __del__(self) -> None:
+    @property
+    def Delete(self) -> None:
         """Delete This Doctor From ```Doctors``` Table When Deleting its Class
         """
         DeleteDoctor(self.id)
@@ -128,7 +129,8 @@ class Patient(Human):
         """
         return f'{self.FirstName} {self.LastName}  NationalNumber: {self.NationalNumber}  Sickness: {self.Sickness}'
 
-    def __del__(self) -> None:
+    @property
+    def Delete(self) -> None:
         """Delete This Patient From ```Patients``` Table When Deleting its Class
         """
         DeletePatient(self.id)
@@ -254,7 +256,7 @@ class Medicine:
         Returns:
             str: Medicine's Info
         """
-        return f'{self.Name}  Stock: {self.Stock}   Description:{self.Description}'
+        return f'{self.Name}  Stock: {self.Stock}   Description: {self.Description}'
 
     @property
     def ToMap(self) -> dict:
@@ -265,7 +267,8 @@ class Medicine:
         """
         return {'id': self.id, 'Name': self.Name, 'Stock': self.Stock, 'Description': self.Description}
 
-    def __del__(self) -> None:
+    @property
+    def Delete(self) -> None:
         """Delete This Medicine From ```Medicines``` Table When Deleting its Class
         """
         DeleteMedicine(self.id)

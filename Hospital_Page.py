@@ -1,0 +1,1 @@
+print('This page is hospital page ')

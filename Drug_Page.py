@@ -6,4 +6,4 @@ class drug_page(Frame):
         super().__init__(parent)
 
         self.windowTitle = 'Drug Page'
-        controller.change_window_name('Drug Page')
+        # controller.change_window_name('Drug Page')

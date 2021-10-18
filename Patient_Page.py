@@ -1,4 +1,5 @@
 from tkinter import *
+from Hospital_Page import *
 
 
 class patient_page(Frame):
@@ -6,4 +7,6 @@ class patient_page(Frame):
         super().__init__(parent)
 
         self.windowTitle = 'Patient Page'
-        # controller.change_window_name('Patient Page')
+
+        # controller.frames[hospital_page].backGround_image_and_text('images/8.gif','Wellcome to Hospital')
+

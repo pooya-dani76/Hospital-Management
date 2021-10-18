@@ -1,5 +1,5 @@
 from tkinter import *
-from Hospital_Page import*
+from Hospital_Page import *
 from Patient_Page import *
 from Doctor_Page import*
 from Drug_Page import *
@@ -21,7 +21,12 @@ class pages_management(Tk):
             self.frames[F] = frame
             frame.grid(row=0, column=0, sticky="nsew")
 
+
+
         self.show_frames(hospital_page)
+
+        print(self.frames[hospital_page].windowTitle)
+
 
         self.position()
 
@@ -41,6 +46,7 @@ class pages_management(Tk):
         x = (ws/2) - (w/2)
         y = (hs/25*10) - (h/2)
         self.geometry('%dx%d+%d+%d' % (w, h, x, y))
+
 
 
 my_application = pages_management()

@@ -84,7 +84,7 @@ def ReceptionPatient(NationalNumber: str, FirstName: str, LastName: str, Sicknes
     """
     try:
         CheckHumanInput(NationalNumber, FirstName, LastName, Age)
-        CheckPatientInput(NationalNumber, VisitorDoctorNationalNumber)
+        CheckPatientInput(NationalNumber, VisitorDoctorNationalNumber, Sickness)
         InsertPatient(NationalNumber, FirstName, LastName,
                       Sickness, Age, VisitorDoctorNationalNumber)
         return True

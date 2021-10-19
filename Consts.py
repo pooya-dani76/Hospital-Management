@@ -87,7 +87,7 @@ def CheckHumanInput(NationalNumber: str, FirstName: str, LastName: str, Age: str
         raise TypeError('Minimum Age is 1!')        
 
 
-def CheckDoctorInput(Type: str) -> None:
+def CheckDoctorInput(NationalNumber: str, Type: str) -> None:
     """Check Class ```Doctor``` Arg(s) to be Right Shape
 
     Args:
@@ -114,6 +114,8 @@ def CheckPatientInput(NationalNumber: str, VisitorDoctorNationalNumber: str, Sic
         TypeError: When ```VisitorDoctorNationalNumber``` is not in Hospital's Doctors
         PermissionError: When A Doctor Cannot be Own Doctor(```NationalNumber``` = ```VisitorDoctorNationalNumber```)
     """
+    
+
     if  len(Sickness) == 1 :
         raise TypeError('Patient Problem Cannot be Empty!')
 

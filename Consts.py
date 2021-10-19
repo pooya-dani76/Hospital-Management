@@ -114,7 +114,7 @@ def CheckPatientInput(NationalNumber: str, VisitorDoctorNationalNumber: str, Sic
         TypeError: When ```VisitorDoctorNationalNumber``` is not in Hospital's Doctors
         PermissionError: When A Doctor Cannot be Own Doctor(```NationalNumber``` = ```VisitorDoctorNationalNumber```)
     """
-    if Sickness == '':
+    if  len(Sickness) == 1 :
         raise TypeError('Patient Problem Cannot be Empty!')
 
     Doctors = list(map(lambda x: x[1] , AllDoctors()))

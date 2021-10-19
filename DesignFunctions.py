@@ -21,7 +21,7 @@ def EmployDoctor(NationalNumber: str, FirstName: str, LastName: str, Age: str, T
     """
     try:
         CheckHumanInput(NationalNumber, FirstName, LastName, Age)
-        CheckDoctorInput(Type)
+        CheckDoctorInput(NationalNumber, Type)
         InsertDoctor(NationalNumber, FirstName, LastName, Age, Type)
         return True
     except Exception as ErrorMessage:

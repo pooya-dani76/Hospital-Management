@@ -96,6 +96,9 @@ def CheckDoctorInput(NationalNumber: str, Type: str) -> None:
     Raises:
         TypeError: When ```Type``` isn't in Types There is in Hospital
     """
+    if NationalNumber in list(map(lambda x: x[1], AllDoctors())):
+        raise TypeError('This Doctor Has Already Exist in This Hospital!')
+
     if Type == "":
         raise TypeError('Doctor Type Cannot be Empty!')
 
@@ -114,10 +117,11 @@ def CheckPatientInput(NationalNumber: str, VisitorDoctorNationalNumber: str, Sic
         TypeError: When ```VisitorDoctorNationalNumber``` is not in Hospital's Doctors
         PermissionError: When A Doctor Cannot be Own Doctor(```NationalNumber``` = ```VisitorDoctorNationalNumber```)
     """
-    
+    if NationalNumber in list(map(lambda x: x[1], AllPatients())):
+        raise TypeError('This Patient Has Already Exist in This Hospital!')
 
     if  len(Sickness) == 1 :
-        raise TypeError('Patient Problem Cannot be Empty!')
+        raise TypeError('Sickness Cannot be Empty!')
 
     Doctors = list(map(lambda x: x[1] , AllDoctors()))
     if VisitorDoctorNationalNumber not in Doctors:
@@ -140,6 +144,9 @@ def CheckMedicineInput(Name: str, Stock: str, Description: str) -> None:
     """
     if Name == "":
         raise TypeError("Drug Name Cannot Be Empty!")
+
+    if Name in list(map(lambda x: x[1], AllMedicines())):
+        raise TypeError('This Medicine Has Already Exist in This Hospital!')    
 
     if Description == "":
         raise TypeError("Drug Name Cannot Be Empty!")    

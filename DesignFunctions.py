@@ -28,6 +28,28 @@ def EmployDoctor(NationalNumber: str, FirstName: str, LastName: str, Age: str, T
         return ErrorMessage, False
 
 
+def FindDoctor(NationalNumber="", FirstName="", LastName="", Age="", Type="") -> list:
+    """Find Doctors With Given Info 
+
+    Args:
+        NationalNumber (str, optional): National Number of Doctor. Defaults to "".
+        FirstName (str, optional): First Name of Doctor. Defaults to "".
+        LastName (str, optional): last Name of Doctor. Defaults to "".
+        Age (str, optional): Age of Doctor. Defaults to "".
+        Type (str, optional): Type of Doctor. Defaults to "".
+
+    Returns:
+        list: A List of Class ```Doctor```
+    """
+    ClassDoctorsList = []
+    Doctors = SearchDoctor(NationalNumber=NationalNumber, FirstName=FirstName, LastName=LastName,\
+         Age=Age, Type=Type)
+    for Doctor in Doctors:
+        ClassDoctorsList.append(cls.Doctor(id=Doctor[0], NationalNumber=Doctor[1],
+                                           FirstName=Doctor[2], LastName=Doctor[3], Age=Doctor[4], Type=Doctor[5]))
+    return ClassDoctorsList
+
+
 def LoadDoctors() -> list:
     """Loads All Doctors into ```Doctor``` Classes
 
@@ -80,8 +102,33 @@ def LoadPatients() -> list:
     Patients = AllPatients()
     for Patient in Patients:
         ClassPatientsList.append(cls.Patient(id=Patient[0], NationalNumber=Patient[1],
-                                             FirstName=Patient[2], LastName=Patient[3], Sickness=Patient[4], Age=Patient[5],
+                                             FirstName=Patient[2], LastName=Patient[3],
+                                                  Sickness=Patient[4], Age=Patient[5],
                                              VisitorDoctorNationalNumber=Patient[6]))
+    return ClassPatientsList
+
+
+def FindPatient(NationalNumber="", FirstName="", LastName="", \
+    Sickness="", Age="", VisitorDoctorNationalNumber="") -> list:
+    """Find Patients With Given Info 
+
+    Args:
+        NationalNumber (str, optional): National Number of Patient. Defaults to "".
+        FirstName (str, optional): First Name of Patient. Defaults to "".
+        LastName (str, optional): last Name of Patient. Defaults to "".
+        Sickness (str, optional): Description about Problem of Patient. Defaults to "".
+        Age (str, optional): Age of Patient. Defaults to "".
+        VisitorDoctorNationalNumber (str, optional): Visitor of Patient. Defaults to "".
+
+    Returns:
+        list: A List of Class ```Patient```
+    """
+    ClassPatientsList = []
+    Patients = SearchPatient(NationalNumber=NationalNumber, FirstName=FirstName, LastName=LastName,\
+         Sickness=Sickness, Age=Age, VisitorDoctorNationalNumber=VisitorDoctorNationalNumber)
+    for Patient in Patients:
+        ClassPatientsList.append(cls.Patient(id=Patient[0], NationalNumber=Patient[1],FirstName=Patient[2],\
+             LastName=Patient[3],Sickness=Patient[4], Age=Patient[5], VisitorDoctorNationalNumber=Patient[6]))
     return ClassPatientsList
 
 ######################### Medicine Operators ##############################
@@ -100,7 +147,7 @@ def AddNewMedicine(Name: str, Stock: int, Description: str):
         tuple(str, False): if Updating Data Encountered an Error(Error Message, False)
     """
     try:
-        CheckMedicineInput(Stock)
+        CheckMedicineInput(Name, Stock, Description)
         InsertMedicine(Name, Stock, Description)
         return True
     except Exception as ErrorMessage:
@@ -121,11 +168,34 @@ def LoadMedicines() -> list:
     return ClassMedicinesList
 
 
+def FindMedicine(Name="", Stock="", Description="") -> list:
+    """Find Medicines With Given Info 
+
+    Args:
+        NationalNumber (str, optional): National Number of Medicine. Defaults to "".
+        FirstName (str, optional): First Name of Medicine. Defaults to "".
+        LastName (str, optional): last Name of Medicine. Defaults to "".
+        Sickness (str, optional): Description about Problem of Medicine. Defaults to "".
+        Age (str, optional): Age of Medicine. Defaults to "".
+        VisitorDoctorNationalNumber (str, optional): Visitor of Medicine. Defaults to "".
+
+    Returns:
+        list: A List of Class ```Medicine```
+    """
+    ClassMedicinesList = []
+    Medicines = SearchMedicine(Name=Name, Stock=Stock, Description=Description)
+    for Medicine in Medicines:
+        ClassMedicinesList.append(cls.Medicine(id=Medicine[0], Name=Medicine[1],\
+             Stock=Medicine[2], Description=Medicine[3]))
+    return ClassMedicinesList
+
+######################### General Operators ##############################
+
 def LoadAllData():
     """Loads All Data in Sqlite
 
     Returns:
-        tuple[list, list, list]: [Doctors List, Patients List, Medicines List]
+        tuple[list, list, list]: [Doctors List, Medicines List, Medicines List]
     """
     Doctors = LoadDoctors()
     Patients = LoadPatients()

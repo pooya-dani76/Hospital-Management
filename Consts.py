@@ -44,18 +44,30 @@ def CheckHumanInput(NationalNumber: str, FirstName: str, LastName: str, Age: str
         TypeError: When ```LastName``` Contains Digits
         TypeError: When ```Age``` Contains Characters
     """
+    if NationalNumber == "":
+        raise TypeError("National Number Cannot Be Empty!")  
+
     if not WithoutChar(NationalNumber):
         raise TypeError(
             "National Number doesn't Should Be Contains Characters!")
 
     if len(NationalNumber) != 10:
-        raise TypeError("National Number Should Be 10 Digits!")        
+        raise TypeError("National Number Should Be 10 Digits!") 
+
+    if FirstName == "":
+        raise TypeError("First Name Cannot Be Empty!")           
 
     if not WithoutDigit(FirstName):
         raise TypeError("First Name doesn't Should Be Contains Digits!")
 
+    if LastName == "":
+        raise TypeError("Last Name Cannot Be Empty!")     
+
     if not WithoutDigit(LastName):
         raise TypeError("Last Name doesn't Should Be Contains Digits!")
+
+    if Age == "":
+        raise TypeError('Age Cannot be Empty!')    
 
     try:
         int(Age)
@@ -72,6 +84,9 @@ def CheckDoctorInput(Type: str) -> None:
     Raises:
         TypeError: When ```Type``` isn't in Types There is in Hospital
     """
+    if Type == "":
+        raise TypeError('Doctor Type Cannot be Empty!')
+
     if Type not in TypeList:
         raise TypeError("Type is Invalid!")
 
@@ -95,15 +110,23 @@ def CheckPatientInput(NationalNumber: str, VisitorDoctorNationalNumber: str)-> N
         raise PermissionError('A Doctor Cannot be Own Doctor!')
 
 
-def CheckMedicineInput(Stock: str) -> None:
+def CheckMedicineInput(Name: str, Stock: str, Description: str) -> None:
     """Check Class ```Medicine``` Arg(s) to be Right Shape
 
     Args:
-        Stock (int): Number of Medicine There is in Hospital's Drug Store 
+        Name (str): Name of Medicine There is in Hospital's Drug Store 
+        Stock (str): Number of Medicine There is in Hospital's Drug Store
+        Stock (str): Description about Medicine There is in Hospital's Drug Store
 
     Raises:
         TypeError: When ```Stock``` Contains Characters
     """
+    if Name == "":
+        raise TypeError("Drug Name Cannot Be Empty!")
+
+    if Description == "":
+        raise TypeError("Drug Name Cannot Be Empty!")    
+
     try:
       int(Stock)
     except:

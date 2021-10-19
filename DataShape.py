@@ -49,7 +49,15 @@ class Doctor(Human):
         Returns:
             str: Doctor's Info
         """
-        return f'Dr.{self.FirstName} {self.LastName} , {self.Type}'
+        return f'{self.NationalNumber} , Dr.{self.FirstName} {self.LastName} , {self.Type}'
+
+    def __repr__(self) -> str:
+        """Representation of Doctor Class in Objects
+
+        Returns:
+            str: Doctor's Name & Type
+        """
+        return f'Dr.{self.FirstName} {self.LastName}({self.Type})'    
 
     @property
     def Delete(self) -> None:
@@ -127,7 +135,15 @@ class Patient(Human):
         Returns:
             str: Patient's Info
         """
-        return f'{self.FirstName} {self.LastName}  NationalNumber: {self.NationalNumber}  Sickness: {self.Sickness}'
+        return f'{self.NationalNumber} , {self.FirstName} {self.LastName}'
+
+    def __repr__(self) -> str:
+        """Representation of Patient Class in Objects
+
+        Returns:
+            str: Patient's Name & Type
+        """
+        return f'{self.FirstName} {self.LastName}({self.NationalNumber})'    
 
     @property
     def Delete(self) -> None:
@@ -256,7 +272,15 @@ class Medicine:
         Returns:
             str: Medicine's Info
         """
-        return f'{self.Name}  Stock: {self.Stock}   Description: {self.Description}'
+        return f'{self.Name} , {self.Stock} , {self.Description}'
+
+    def __repr__(self) -> str:
+        """Representation of Medicine Class in Objects
+
+        Returns:
+            str: Medicine's Name & Type
+        """
+        return f'{self.Name} -> ({self.Stock})'    
 
     @property
     def ToMap(self) -> dict:

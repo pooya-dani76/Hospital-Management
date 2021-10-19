@@ -124,8 +124,13 @@ def SearchDoctor(NationalNumber="", FirstName="", LastName="", Age="", Type="") 
         list: A List of Doctors
     """
     cur, conn = ConnectSqlite()
-    cur.execute('''SELECT * FROM Doctors WHERE NationalNumber=? OR FirstName=? OR LastName=? OR Age=? OR Type=?''',
-                (NationalNumber, FirstName, LastName, Age, Type))
+    cur.execute("""SELECT * FROM Doctors
+                WHERE NationalNumber LIKE ? AND
+                FirstName LIKE ? AND
+                LastName LIKE ? AND
+                Age LIKE ? AND 
+                Type LIKE ? """,
+                ('%'+NationalNumber+'%', '%'+FirstName+'%', '%'+LastName+'%', '%'+Age+'%', '%'+Type+'%'))
     Doctors = cur.fetchall()
     conn.close()
     return Doctors
@@ -203,8 +208,8 @@ def SearchMedicine(Name="", Stock="", Description="") -> list:
         list: A List of Doctors
     """
     cur, conn = ConnectSqlite()
-    cur.execute('''SELECT * FROM Medicines WHERE Name=? OR Stock=? OR Description=?''',
-                (Name, Stock, Description))
+    cur.execute('''SELECT * FROM Medicines WHERE Name LIKE ? AND Stock LIKE ? AND Description LIKE ?''',
+                ('%' + Name + '%', '%' + Stock + '%', '%' + Description + '%'))
     Medicines = cur.fetchall()
     conn.close()
     return Medicines
@@ -300,13 +305,14 @@ def SearchPatient(NationalNumber="", FirstName="", LastName="", \
     """
     cur, conn = ConnectSqlite()
     cur.execute('''SELECT * FROM Patients WHERE
-    NationalNumber=? OR
-    FirstName=? OR 
-    LastName=? OR 
-    Sickness=? OR 
-    Age=? OR 
-    VisitorDoctorNationalNumber=?''',
-                (NationalNumber, FirstName, LastName, Sickness, Age, VisitorDoctorNationalNumber))
+    NationalNumber LIKE ? AND
+    FirstName LIKE ? AND 
+    LastName LIKE ? AND 
+    Sickness LIKE ? AND 
+    Age LIKE ? AND 
+    VisitorDoctorNationalNumber LIKE ?''',
+                ('%' + NationalNumber + '%', '%' + FirstName + '%', '%' + LastName + '%', '%' + Sickness + '%',\
+                     '%' + Age + '%', '%' + VisitorDoctorNationalNumber + '%'))
     Patients = cur.fetchall()
     conn.close()
     return Patients

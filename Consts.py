@@ -60,11 +60,17 @@ def CheckHumanInput(NationalNumber: str, FirstName: str, LastName: str, Age: str
     if not WithoutDigit(FirstName):
         raise TypeError("First Name doesn't Should Be Contains Digits!")
 
+    if len(FirstName) > 20:
+        raise TypeError('First Name is too Long!')    
+
     if LastName == "":
         raise TypeError("Last Name Cannot Be Empty!")     
 
     if not WithoutDigit(LastName):
         raise TypeError("Last Name doesn't Should Be Contains Digits!")
+
+    if len(LastName) > 20:
+        raise TypeError('First Name is too Long!')     
 
     if Age == "":
         raise TypeError('Age Cannot be Empty!')    
@@ -73,6 +79,12 @@ def CheckHumanInput(NationalNumber: str, FirstName: str, LastName: str, Age: str
         int(Age)
     except:
         raise TypeError("Age doesn't Should Be Contains Characters!")
+
+    if int(Age) > 130:
+        raise TypeError('Maximum Age is 130!') 
+        
+    if int(Age) < 1 :
+        raise TypeError('Minimum Age is 1!')        
 
 
 def CheckDoctorInput(Type: str) -> None:
@@ -91,7 +103,7 @@ def CheckDoctorInput(Type: str) -> None:
         raise TypeError("Type is Invalid!")
 
 
-def CheckPatientInput(NationalNumber: str, VisitorDoctorNationalNumber: str)-> None:
+def CheckPatientInput(NationalNumber: str, VisitorDoctorNationalNumber: str, Sickness: str)-> None:
     """Check Class ```Patient``` Arg(s) to be Right Shape
 
     Args:
@@ -102,6 +114,9 @@ def CheckPatientInput(NationalNumber: str, VisitorDoctorNationalNumber: str)-> N
         TypeError: When ```VisitorDoctorNationalNumber``` is not in Hospital's Doctors
         PermissionError: When A Doctor Cannot be Own Doctor(```NationalNumber``` = ```VisitorDoctorNationalNumber```)
     """
+    if Sickness == '':
+        raise TypeError('Patient Problem Cannot be Empty!')
+
     Doctors = list(map(lambda x: x[1] , AllDoctors()))
     if VisitorDoctorNationalNumber not in Doctors:
         raise TypeError("Doctor is not in This Hospital!")

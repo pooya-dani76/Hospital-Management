@@ -16,17 +16,18 @@ class pages_management(Tk):
 
         self.frames = {}
 
-        for F in (hospital_page, patient_page, doctor_page, drug_page):
+        for F in (hospital_page, patient_page, doctor_page, drug_page,add_patient):
             frame = F(main_Frame, self)
-            self.frames[F] = frame
+            self.frames[F.__name__] = frame
             frame.grid(row=0, column=0, sticky="nsew")
 
 
+        
 
-        self.show_frames(hospital_page)
+        self.show_frames(hospital_page.__name__)
 
-        print(self.frames[hospital_page].windowTitle)
-
+        # print(self.frames[hospital_page].windowTitle)
+        # print(hospital_page.__name__)
 
         self.position()
 
@@ -46,8 +47,11 @@ class pages_management(Tk):
         x = (ws/2) - (w/2)
         y = (hs/25*10) - (h/2)
         self.geometry('%dx%d+%d+%d' % (w, h, x, y))
+        self.resizable(width=False, height=False)
 
 
 
 my_application = pages_management()
 my_application.mainloop()
+
+

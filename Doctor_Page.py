@@ -1,4 +1,5 @@
 from tkinter import *
+from functions import *
 
 
 class doctor_page(Frame):
@@ -6,4 +7,5 @@ class doctor_page(Frame):
         super().__init__(parent)
 
         self.windowTitle = 'Doctor Page'
-        # controller.change_window_name('Doctor Page')
+        backGround_image_and_text(self,'images/1.gif','Doctor Page')
+

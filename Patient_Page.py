@@ -17,7 +17,8 @@ class patient_page(Frame):
         backGround_image_and_text(self, 'images/5.gif', 'Patient Page')
 
         self.listBox = self.scrollbar_for_listbox_right()
-        self.listBox.bind('<<ListboxSelect>>', self.item_selected)
+        self.listBox.bind('<<ListboxSelect>>',
+                          lambda x: self.item_selected(even=None, controller=controller))
         self.update_show_listBox()
 
         self.Buttons('Hospital Page', lambda: controller.show_frames(
@@ -26,6 +27,9 @@ class patient_page(Frame):
             'add_patient'), 12, 140, 480)
         self.Buttons('Search Patient',
                      lambda: self.open_search_window(), 18, 237, 480)
+
+    def x(self, controller):
+        self.switch_page = controller.show_frames('hospital_page')
 
     def update_show_listBox(self):
         patient_list = LoadPatients()
@@ -45,7 +49,7 @@ class patient_page(Frame):
         scrollbar = Scrollbar(self)
         listBox = Listbox(self, width=58, height=24,
                           yscrollcommand=scrollbar.set,
-                          listvariable=patient_list_var, selectmode='extended')
+                          listvariable=patient_list_var, selectmode='extended',)
         scrollbar.config(command=listBox.yview)
         scrollbar.place(x=375, y=80, height=388)
         listBox.place(x=20, y=80)
@@ -55,13 +59,17 @@ class patient_page(Frame):
         mainWindow = search_patient(self)
         mainWindow.grab_set()
 
-    def item_selected(self, even):
+    def item_selected(self, controller, even):
+        patient_list = LoadPatients()
         selected_indices = self.listBox.curselection()
+        controller.show_frames('add_patient')
+
         # selected_langs = ",".join([self.listBox.get(i)
         #                           for i in selected_indices])
         # msg = f'You selected: {selected_langs}'
         # print(type(patient_list[selected_indices[0]]))
-        # print(patient_list[selected_indices[0]].FirstName)
+        # print(patient_list)
+        print(patient_list[selected_indices[0]].FirstName)
 
 
 class add_patient(Frame):
@@ -118,8 +126,8 @@ class add_patient(Frame):
             get_entry5 = self.Entry_5.get()
             get_entry6 = self.sickness_text.get("1.0", END)
             massege_error = ReceptionPatient(FirstName=get_entry1, LastName=get_entry2, Age=get_entry3,
-                                            VisitorDoctorNationalNumber=get_entry4, NationalNumber=get_entry5,
-                                            Sickness=get_entry6)
+                                             VisitorDoctorNationalNumber=get_entry4, NationalNumber=get_entry5,
+                                             Sickness=get_entry6)
 
             confirm_for_save = self.show_errors(massege_error)
         if confirm_for_save is True:
@@ -222,7 +230,7 @@ class drop_down:
         self.VisitorDoctorNationalNumber_cb['state'] = 'readonly'
         self.VisitorDoctorNationalNumber_cb.place(x=408, y=340)
         self.VisitorDoctorNationalNumber_cb.bind(
-            '<<ComboboxSelected>>', self.VisitorDoctorNationalNumber_changed)
+            '<<ComboboxSelected>>',self.VisitorDoctorNationalNumber_changed)
 
     def VisitorDoctorNationalNumber_changed(self, event):
         msg = f'You selected {self.VisitorDoctorNationalNumber_cb.get()}!'
@@ -234,5 +242,3 @@ class drop_down:
 
 VisitorDoctorNationalNumber_list = list(
     map(lambda x: f'{x.id}. Dr.{x.FirstName} {x.LastName}', LoadDoctors()))
-
-

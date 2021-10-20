@@ -24,3 +24,5 @@ class hospital_page(Frame):
         Button(self, text=button_text, width=30,
                height=2, command=Command).place(x=X, y=Y)
          
+
+

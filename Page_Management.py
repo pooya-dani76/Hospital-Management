@@ -22,8 +22,6 @@ class pages_management(Tk):
             frame.grid(row=0, column=0, sticky="nsew")
 
 
-        
-
         self.show_frames(hospital_page.__name__)
 
         # print(self.frames[hospital_page].windowTitle)
@@ -53,6 +51,3 @@ class pages_management(Tk):
 
 my_application = pages_management()
 my_application.mainloop()
-
-
-

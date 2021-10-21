@@ -17,7 +17,7 @@ class patient_page(Frame):
         backGround_image_and_text(self, 'images/5.gif', 'Patient Page')
 
         self.listBox = self.scrollbar_for_listbox_right()
-        self.listBox.bind('<Double-1>',
+        self.listBox.bind('<ButtonRelease-1>',
                           lambda x: self.item_selected(even=None, controller=controller))
         self.update_show_listBox()
 
@@ -59,7 +59,7 @@ class patient_page(Frame):
         mainWindow = search_patient(self)
         mainWindow.grab_set()
 
-    def item_selected(self, controller, even=None):
+    def item_selected(self, controller, even):
         patient_list = LoadPatients()
         selected_indices = self.listBox.curselection()
         controller.show_frames('add_patient')
@@ -68,6 +68,7 @@ class patient_page(Frame):
         #                           for i in selected_indices])
         # msg = f'You selected: {selected_langs}'
         # print(type(patient_list[selected_indices[0]]))
+        # print(patient_list)
         print(patient_list[selected_indices[0]].FirstName)
 
 
@@ -241,3 +242,4 @@ class drop_down:
 
 VisitorDoctorNationalNumber_list = list(
     map(lambda x: f'{x.id}. Dr.{x.FirstName} {x.LastName}', LoadDoctors()))
+

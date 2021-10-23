@@ -20,5 +20,5 @@ def labels(Canvas, Text, x, y, font_size):
 
 
 patient_list = []
-
-patient_list = LoadPatients()
+# selected_indices = None
+# patient_list = LoadPatients()

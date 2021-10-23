@@ -149,7 +149,7 @@ class Patient(Human):
     def Delete(self) -> None:
         """Delete This Patient From ```Patients``` Table When Deleting its Class
         """
-        DeletePatient(self.id)
+        DeletePatient(self.NationalNumber)
 
     @property
     def ToMap(self) -> dict:
@@ -179,7 +179,7 @@ class Patient(Human):
         """
         try:
             CheckHumanInput(NationalNumber, FirstName, LastName, Age)
-            CheckPatientInput(NationalNumber, VisitorDoctorNationalNumber)
+            CheckPatientInput(NationalNumber, VisitorDoctorNationalNumber, Sickness)
             self.NationalNumber = NationalNumber
             self.FirstName = FirstName
             self.LastName = LastName

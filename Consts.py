@@ -117,8 +117,8 @@ def CheckPatientInput(NationalNumber: str, VisitorDoctorNationalNumber: str, Sic
         TypeError: When ```VisitorDoctorNationalNumber``` is not in Hospital's Doctors
         PermissionError: When A Doctor Cannot be Own Doctor(```NationalNumber``` = ```VisitorDoctorNationalNumber```)
     """
-    if NationalNumber in list(map(lambda x: x[1], AllPatients())):
-        raise TypeError('This Patient Has Already Exist in This Hospital!')
+    # if NationalNumber in list(map(lambda x: x[1], AllPatients())):
+    #     raise TypeError('This Patient Has Already Exist in This Hospital!')
 
     if  len(Sickness) == 1 :
         raise TypeError('Sickness Cannot be Empty!')

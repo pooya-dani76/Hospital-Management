@@ -16,11 +16,13 @@ class pages_management(Tk):
 
         self.frames = {}
 
-        for F in (hospital_page, patient_page, doctor_page, drug_page,add_patient):
+        for F in (hospital_page, patient_page, doctor_page, drug_page,add_patient,delete_and_update_patient):
             frame = F(main_Frame, self)
             self.frames[F.__name__] = frame
             frame.grid(row=0, column=0, sticky="nsew")
 
+
+        
 
         self.show_frames(hospital_page.__name__)
 
@@ -51,3 +53,14 @@ class pages_management(Tk):
 
 my_application = pages_management()
 my_application.mainloop()
+
+
+
+
+
+
+
+
+
+
+

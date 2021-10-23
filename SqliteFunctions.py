@@ -279,14 +279,14 @@ def UpdatePatient(id: int,NationalNumber: str, FirstName: str, LastName: str, Si
     conn.close()
 
 
-def DeletePatient(id: int) -> None:
+def DeletePatient(NationalNumber: int) -> None:
     """Delete a Patient From ```Patients``` Table
 
     Args:
         id (int): id of Patient in ```Patients``` Table
     """
     cur, conn = ConnectSqlite()
-    cur.execute('''DELETE FROM Patients WHERE id=?''', (id,))
+    cur.execute('''DELETE FROM Patients WHERE NationalNumber=?''', (NationalNumber,))
     conn.commit()
     conn.close()
 

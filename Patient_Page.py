@@ -1,5 +1,3 @@
-
-import tkinter as tk
 from tkinter import *
 from functions import *
 from DesignFunctions import *
@@ -28,7 +26,7 @@ class patient_page(Frame):
             'add_patient'), 12, 140, 480)
         self.Buttons('Search Patient',
                      lambda: self.open_search_window(controller), 18, 237, 480)
-        self.Buttons('Show all Patient',
+        self.Buttons('Show All Patients',
                      lambda: self.update_show_listBox(), 49, 20, 510)
 
     def update_show_listBox(self):

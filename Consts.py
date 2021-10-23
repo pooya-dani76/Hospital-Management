@@ -28,6 +28,19 @@ def WithoutChar(text: str) -> bool:
     return all(map(str.isdigit, text))
 
 
+def CheckNationalNumberIsExists(NationalNumber: str):
+    """Check Given National Number is Exists in DataBase or not
+
+    Args:
+        NationalNumber (str): The National Number
+
+    Raises:
+        KeyError: when Given National Number Exists in DataBase
+    """
+    if len(list(filter(lambda x: x[1] == NationalNumber, AllPatients()))) > 0:
+        raise TypeError('This National Number is Exists in This Hospital!')
+
+
 def CheckHumanInput(NationalNumber: str, FirstName: str, LastName: str, Age: str) -> None:
     """Check Class ```Human``` Args to be Right Shape
 
@@ -117,9 +130,6 @@ def CheckPatientInput(NationalNumber: str, VisitorDoctorNationalNumber: str, Sic
         TypeError: When ```VisitorDoctorNationalNumber``` is not in Hospital's Doctors
         PermissionError: When A Doctor Cannot be Own Doctor(```NationalNumber``` = ```VisitorDoctorNationalNumber```)
     """
-    # if NationalNumber in list(map(lambda x: x[1], AllPatients())):
-    #     raise TypeError('This Patient Has Already Exist in This Hospital!')
-
     if  len(Sickness) == 1 :
         raise TypeError('Sickness Cannot be Empty!')
 

@@ -79,19 +79,19 @@ class Doctor(Human):
             bool: if Data Correctly Added to Sqlite Table
             tuple(str, bool): if Updating Data Encountered an Error(Error Message, False) 
         """
-        try:
-            CheckHumanInput(NationalNumber, FirstName, LastName, Age)
-            CheckDoctorInput(Type)
-            self.NationalNumber = NationalNumber
-            self.FirstName = FirstName
-            self.LastName = LastName
-            self.Age = Age
-            self.Type = Type
-            UpdateDoctor(self.id, NationalNumber,
-                         FirstName, LastName, Age, Type)
-            return True
-        except Exception as ErrorMessage:
-            return ErrorMessage, False
+        # try:
+        # CheckHumanInput(NationalNumber, FirstName, LastName, Age)
+        # CheckDoctorInput(Type)
+        self.NationalNumber = NationalNumber
+        self.FirstName = FirstName
+        self.LastName = LastName
+        self.Age = Age
+        self.Type = Type
+        UpdateDoctor(self.id, NationalNumber,
+                        FirstName, LastName, Age, Type)
+        #     return True
+        # except Exception as ErrorMessage:
+        #     return ErrorMessage, False
 
     @property
     def ToMap(self) -> dict:
@@ -177,20 +177,20 @@ class Patient(Human):
             bool: if Data Correctly Added to Sqlite Table
             tuple(str, bool): if Updating Data Encountered an Error(Error Message, False) 
         """
-        try:
-            CheckHumanInput(NationalNumber, FirstName, LastName, Age)
-            CheckPatientInput(NationalNumber, VisitorDoctorNationalNumber, Sickness)
-            self.NationalNumber = NationalNumber
-            self.FirstName = FirstName
-            self.LastName = LastName
-            self.Sickness = Sickness
-            self.Age = Age
-            self.Type = VisitorDoctorNationalNumber
-            UpdatePatient(self.id, NationalNumber, FirstName,
-                          LastName, Sickness, Age, VisitorDoctorNationalNumber)
-            return True
-        except Exception as ErrorMessage:
-            return ErrorMessage, False
+        # try:
+            # CheckHumanInput(NationalNumber, FirstName, LastName, Age)
+            # CheckPatientInput(NationalNumber, VisitorDoctorNationalNumber, Sickness)
+        self.NationalNumber = NationalNumber
+        self.FirstName = FirstName
+        self.LastName = LastName
+        self.Sickness = Sickness
+        self.Age = Age
+        self.Type = VisitorDoctorNationalNumber
+        UpdatePatient(self.id, NationalNumber, FirstName,
+                        LastName, Sickness, Age, VisitorDoctorNationalNumber)
+        #     return True
+        # except Exception as ErrorMessage:
+        #     return ErrorMessage, False
 
 
 class Medicine:

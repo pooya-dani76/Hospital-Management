@@ -318,4 +318,4 @@ def SearchPatient(NationalNumber="", FirstName="", LastName="", \
     return Patients
 
 
-CreateTables()
+CreateTables() 

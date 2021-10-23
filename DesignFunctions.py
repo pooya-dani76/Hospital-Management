@@ -19,13 +19,13 @@ def EmployDoctor(NationalNumber: str, FirstName: str, LastName: str, Age: str, T
         True: if Data Correctly Added to Sqlite Table
         tuple(str, False): if Updating Data Encountered an Error(Error Message, False)  
     """
-    try:
-        CheckHumanInput(NationalNumber, FirstName, LastName, Age)
-        CheckDoctorInput(NationalNumber, Type)
-        InsertDoctor(NationalNumber, FirstName, LastName, Age, Type)
-        return True
-    except Exception as ErrorMessage:
-        return ErrorMessage, False
+    # try:
+    # CheckHumanInput(NationalNumber, FirstName, LastName, Age)
+    # CheckDoctorInput(NationalNumber, Type)
+    # InsertDoctor(NationalNumber, FirstName, LastName, Age, Type)
+    # return True
+    # except Exception as ErrorMessage:
+    #     return ErrorMessage, False
 
 
 def FindDoctor(NationalNumber="", FirstName="", LastName="", Age="", Type="") -> list:
@@ -42,8 +42,8 @@ def FindDoctor(NationalNumber="", FirstName="", LastName="", Age="", Type="") ->
         list: A List of Class ```Doctor```
     """
     ClassDoctorsList = []
-    Doctors = SearchDoctor(NationalNumber=NationalNumber, FirstName=FirstName, LastName=LastName,\
-         Age=Age, Type=Type)
+    Doctors = SearchDoctor(NationalNumber=NationalNumber, FirstName=FirstName, LastName=LastName,
+                           Age=Age, Type=Type)
     for Doctor in Doctors:
         ClassDoctorsList.append(cls.Doctor(id=Doctor[0], NationalNumber=Doctor[1],
                                            FirstName=Doctor[2], LastName=Doctor[3], Age=Doctor[4], Type=Doctor[5]))
@@ -66,30 +66,31 @@ def LoadDoctors() -> list:
 ######################### Patient Operators ###############################
 
 
-def ReceptionPatient(NationalNumber: str, FirstName: str, LastName: str, Sickness: str, Age: str,
-                     VisitorDoctorNationalNumber: str):
-    """Add Patient to Table ```Patients``` if Data be Right Shape
+# def ReceptionPatient(NationalNumber: str, FirstName: str, LastName: str, Sickness: str, Age: str,
+#                      VisitorDoctorNationalNumber: str):
+#     """Add Patient to Table ```Patients``` if Data be Right Shape
 
-    Args:
-        NationalNumber (str): National Number of Patient
-        FirstName (str): First Name of Patient 
-        LastName (str): Last Name of Patient
-        Sickness (str): Problem of Patient Cause Him Sick
-        Age (int): Age of Patient
-        VisitorDoctorNationalNumber (str): Visitor Doctor's National Number
+#     Args:
+#         NationalNumber (str): National Number of Patient
+#         FirstName (str): First Name of Patient 
+#         LastName (str): Last Name of Patient
+#         Sickness (str): Problem of Patient Cause Him Sick
+#         Age (int): Age of Patient
+#         VisitorDoctorNationalNumber (str): Visitor Doctor's National Number
 
-    Returns:
-        True: if Data Correctly Added to Sqlite Table
-        tuple(str, False): if Updating Data Encountered an Error(Error Message, False) 
-    """
-    try:
-        CheckHumanInput(NationalNumber, FirstName, LastName, Age)
-        CheckPatientInput(NationalNumber, VisitorDoctorNationalNumber, Sickness)
-        InsertPatient(NationalNumber, FirstName, LastName,
-                      Sickness, Age, VisitorDoctorNationalNumber)
-        return True
-    except Exception as ErrorMessage:
-        return ErrorMessage
+#     Returns:
+#         True: if Data Correctly Added to Sqlite Table
+#         tuple(str, False): if Updating Data Encountered an Error(Error Message, False) 
+#     """
+#     try:
+#         CheckHumanInput(NationalNumber, FirstName, LastName, Age)
+#         CheckPatientInput(
+#             NationalNumber, VisitorDoctorNationalNumber, Sickness)
+#         InsertPatient(NationalNumber, FirstName, LastName,
+#                       Sickness, Age, VisitorDoctorNationalNumber)
+#         return True
+#     except Exception as ErrorMessage:
+#         return ErrorMessage
 
 
 def LoadPatients() -> list:
@@ -103,13 +104,13 @@ def LoadPatients() -> list:
     for Patient in Patients:
         ClassPatientsList.append(cls.Patient(id=Patient[0], NationalNumber=Patient[1],
                                              FirstName=Patient[2], LastName=Patient[3],
-                                                  Sickness=Patient[4], Age=Patient[5],
+                                             Sickness=Patient[4], Age=Patient[5],
                                              VisitorDoctorNationalNumber=Patient[6]))
     return ClassPatientsList
 
 
-def FindPatient(NationalNumber="", FirstName="", LastName="", \
-    Sickness="", Age="", VisitorDoctorNationalNumber="") -> list:
+def FindPatient(NationalNumber="", FirstName="", LastName="",
+                Sickness="", Age="", VisitorDoctorNationalNumber="") -> list:
     """Find Patients With Given Info 
 
     Args:
@@ -124,11 +125,11 @@ def FindPatient(NationalNumber="", FirstName="", LastName="", \
         list: A List of Class ```Patient```
     """
     ClassPatientsList = []
-    Patients = SearchPatient(NationalNumber=NationalNumber, FirstName=FirstName, LastName=LastName,\
-         Sickness=Sickness, Age=Age, VisitorDoctorNationalNumber=VisitorDoctorNationalNumber)
+    Patients = SearchPatient(NationalNumber=NationalNumber, FirstName=FirstName, LastName=LastName,
+                             Sickness=Sickness, Age=Age, VisitorDoctorNationalNumber=VisitorDoctorNationalNumber)
     for Patient in Patients:
-        ClassPatientsList.append(cls.Patient(id=Patient[0], NationalNumber=Patient[1],FirstName=Patient[2],\
-             LastName=Patient[3],Sickness=Patient[4], Age=Patient[5], VisitorDoctorNationalNumber=Patient[6]))
+        ClassPatientsList.append(cls.Patient(id=Patient[0], NationalNumber=Patient[1], FirstName=Patient[2],
+                                             LastName=Patient[3], Sickness=Patient[4], Age=Patient[5], VisitorDoctorNationalNumber=Patient[6]))
     return ClassPatientsList
 
 ######################### Medicine Operators ##############################
@@ -185,11 +186,12 @@ def FindMedicine(Name="", Stock="", Description="") -> list:
     ClassMedicinesList = []
     Medicines = SearchMedicine(Name=Name, Stock=Stock, Description=Description)
     for Medicine in Medicines:
-        ClassMedicinesList.append(cls.Medicine(id=Medicine[0], Name=Medicine[1],\
-             Stock=Medicine[2], Description=Medicine[3]))
+        ClassMedicinesList.append(cls.Medicine(id=Medicine[0], Name=Medicine[1],
+                                               Stock=Medicine[2], Description=Medicine[3]))
     return ClassMedicinesList
 
 ######################### General Operators ##############################
+
 
 def LoadAllData():
     """Loads All Data in Sqlite

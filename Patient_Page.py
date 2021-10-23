@@ -175,6 +175,7 @@ class add_patient(Frame):
             try:
                 CheckHumanInput(get_entry5, get_entry1, get_entry2, get_entry3)
                 CheckPatientInput(get_entry5, get_entry4, get_entry6)
+                CheckNationalNumberIsExists(get_entry5)
                 show_confirm_massageBox = err_massage.askquestion(
                     "Confirm", "Are you sure?")
                 if show_confirm_massageBox == 'yes':
@@ -307,6 +308,7 @@ class delete_and_update_patient(Frame):
             try:
                 CheckHumanInput(get_entry5, get_entry1, get_entry2, get_entry3)
                 CheckPatientInput(get_entry5, get_entry4, get_entry6)
+                CheckNationalNumberIsExists(get_entry5)
                 show_confirm_massageBox = err_massage.askquestion(
                     "Confirm", "Are you sure?")
                 if show_confirm_massageBox == 'yes':

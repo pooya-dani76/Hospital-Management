@@ -1,5 +1,6 @@
 from SqliteFunctions import *
 from Consts import *
+import random
 
 
 class Human:
@@ -57,13 +58,32 @@ class Doctor(Human):
         Returns:
             str: Doctor's Name & Type
         """
-        return f'Dr.{self.FirstName} {self.LastName}({self.Type})'    
+        return f'Dr.{self.FirstName} {self.LastName}({self.Type})'
 
     @property
     def Delete(self) -> None:
         """Delete This Doctor From ```Doctors``` Table When Deleting its Class
         """
         DeleteDoctor(self.id)
+        Doctors = list(filter(lambda x: x[5] == self.Type, AllDoctors()))
+        if len(Doctors) > 0:
+            for DoctorPatient in list(filter(lambda x: x[6] == self.NationalNumber, AllPatients())):
+                print('Hi2')
+                PatientTemp = Patient(id=DoctorPatient[0], NationalNumber=DoctorPatient[1], FirstName=DoctorPatient[2],
+                                      LastName=DoctorPatient[3], Sickness=DoctorPatient[4],
+                                      Age=DoctorPatient[5], VisitorDoctorNationalNumber=DoctorPatient[6])
+                DoctorTemp = random.choice(Doctors)
+                PatientTemp.Update(NationalNumber=DoctorPatient[1], FirstName=DoctorPatient[2],
+                                   LastName=DoctorPatient[3], Sickness=DoctorPatient[4],
+                                   Age=DoctorPatient[5], VisitorDoctorNationalNumber=DoctorTemp[1])
+
+        else:
+            for DoctorPatient in list(filter(lambda x: x[6] == self.NationalNumber, AllPatients())):
+                PatientTemp = Patient(id=DoctorPatient[0], NationalNumber=DoctorPatient[1], FirstName=DoctorPatient[2],
+                                      LastName=DoctorPatient[3], Sickness=DoctorPatient[4],
+                                      Age=DoctorPatient[5], VisitorDoctorNationalNumber=DoctorPatient[6])
+                PatientTemp.Delete
+                del PatientTemp
 
     def Update(self, NationalNumber: str, FirstName: str, LastName: str, Age: int, Type: str):
         """Update This Doctor Info With Given Info
@@ -82,13 +102,25 @@ class Doctor(Human):
         # try:
         # CheckHumanInput(NationalNumber, FirstName, LastName, Age)
         # CheckDoctorInput(Type)
+        PreviousNationalNumber = self.NationalNumber
         self.NationalNumber = NationalNumber
         self.FirstName = FirstName
         self.LastName = LastName
         self.Age = Age
         self.Type = Type
         UpdateDoctor(self.id, NationalNumber,
-                        FirstName, LastName, Age, Type)
+                     FirstName, LastName, Age, Type)
+        # print('Success!')
+        # print(self.NationalNumber)
+        # print(list(filter(lambda x: x[6] == self.NationalNumber, AllPatients())))
+        if self.NationalNumber != PreviousNationalNumber:
+            for DoctorPatient in list(filter(lambda x: x[6] == PreviousNationalNumber, AllPatients())):
+                Temp = Patient(id=DoctorPatient[0], NationalNumber=DoctorPatient[1], FirstName=DoctorPatient[2],
+                               LastName=DoctorPatient[3], Sickness=DoctorPatient[4],
+                               Age=DoctorPatient[5], VisitorDoctorNationalNumber=DoctorPatient[6])
+                Temp.Update(NationalNumber=DoctorPatient[1], FirstName=DoctorPatient[2],
+                            LastName=DoctorPatient[3], Sickness=DoctorPatient[4],
+                            Age=DoctorPatient[5], VisitorDoctorNationalNumber=self.NationalNumber)
         #     return True
         # except Exception as ErrorMessage:
         #     return ErrorMessage, False
@@ -111,8 +143,8 @@ class Patient(Human):
         Human (```Human```): Inherits From ```Human``` model
     """
 
-    def __init__(self, id: int, NationalNumber: str, FirstName: str, LastName: str, Sickness: str,\
-         Age: int, VisitorDoctorNationalNumber: str):
+    def __init__(self, id: int, NationalNumber: str, FirstName: str, LastName: str, Sickness: str,
+                 Age: int, VisitorDoctorNationalNumber: str):
         """Initialize a Patient
 
         Args:
@@ -143,7 +175,7 @@ class Patient(Human):
         Returns:
             str: Patient's Name & Type
         """
-        return f'{self.FirstName} {self.LastName}({self.NationalNumber})'    
+        return f'{self.FirstName} {self.LastName}({self.NationalNumber})'
 
     @property
     def Delete(self) -> None:
@@ -178,8 +210,8 @@ class Patient(Human):
             tuple(str, bool): if Updating Data Encountered an Error(Error Message, False) 
         """
         # try:
-            # CheckHumanInput(NationalNumber, FirstName, LastName, Age)
-            # CheckPatientInput(NationalNumber, VisitorDoctorNationalNumber, Sickness)
+        # CheckHumanInput(NationalNumber, FirstName, LastName, Age)
+        # CheckPatientInput(NationalNumber, VisitorDoctorNationalNumber, Sickness)
         self.NationalNumber = NationalNumber
         self.FirstName = FirstName
         self.LastName = LastName
@@ -187,7 +219,7 @@ class Patient(Human):
         self.Age = Age
         self.Type = VisitorDoctorNationalNumber
         UpdatePatient(self.id, NationalNumber, FirstName,
-                        LastName, Sickness, Age, VisitorDoctorNationalNumber)
+                      LastName, Sickness, Age, VisitorDoctorNationalNumber)
         #     return True
         # except Exception as ErrorMessage:
         #     return ErrorMessage, False
@@ -280,7 +312,7 @@ class Medicine:
         Returns:
             str: Medicine's Name & Type
         """
-        return f'{self.Name} -> ({self.Stock})'    
+        return f'{self.Name} -> ({self.Stock})'
 
     @property
     def ToMap(self) -> dict:
@@ -296,3 +328,5 @@ class Medicine:
         """Delete This Medicine From ```Medicines``` Table When Deleting its Class
         """
         DeleteMedicine(self.id)
+
+# print()

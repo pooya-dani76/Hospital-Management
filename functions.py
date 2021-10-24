@@ -19,6 +19,14 @@ def labels(Canvas, Text, x, y, font_size):
                        disabledfill='red', fill='green')
 
 
+
+def update_doctors_to_dropDown():
+    VisitorDoctorNationalNumber_list = list(
+        map(lambda x: f'{x.id}. Dr.{x.FirstName} {x.LastName}', LoadDoctors()))
+    return VisitorDoctorNationalNumber_list
+
+
+
 patient_list = []
 
 

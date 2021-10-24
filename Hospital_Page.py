@@ -30,5 +30,6 @@ class hospital_page(Frame):
         if len(LoadDoctors()) == 0:
             err_massage.showerror('Error', "Doctor's List is Empty !!!\
                 \nClick Doctor Page Button to Add a Doctor")
+            return 'hospital_page'
         else:
             return 'patient_page'

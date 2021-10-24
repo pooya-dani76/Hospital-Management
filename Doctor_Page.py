@@ -12,7 +12,7 @@ class doctor_page(Frame):
         super().__init__(parent)
 
         self.windowTitle = 'Doctor Page'
-        backGround_image_and_text(self,'images/1.gif','Doctor Page')
+        backGround_image_and_text(self, 'images/1.gif', 'Doctor Page')
 
         self.listBox = self.scrollbar_for_listbox_right()
         self.listBox.bind('<Double-1>',
@@ -74,47 +74,46 @@ class doctor_page(Frame):
         print('fu.doctor_list = ', fu.doctor_list)
         global selected_indices
         selected_indices = self.listBox.curselection()
-        print('selected_indices = ', selected_indices)
-        index = list(filter(lambda x: x.NationalNumber ==
-                            fu.doctor_list[selected_indices[0]].VisitorDoctorNationalNumber, LoadDoctors()))[0]
-        print('index = ', index)
-        # selected_langs = ",".join([self.listBox.get(i)
-        #                           for i in selected_indices])
-        # msg = f'You selected: {selected_langs}'
-        # print(type(fu.doctor_list[selected_indices[0]]))
-        # print(selected_indices[0])
-        # print(fu.doctor_list[selected_indices[0]].FirstName)
+    #     print('selected_indices = ', selected_indices)
+    #     index = list(filter(lambda x: x.NationalNumber ==
+    #                         fu.patient_list[selected_indices[0]].VisitorDoctorNationalNumber, LoadDoctors()))[0]
+    #     print('index ==== ', index)
+    #     # selected_langs = ",".join([self.listBox.get(i)
+    #     #                           for i in selected_indices])
+    #     # msg = f'You selected: {selected_langs}'
+    #     # print(type(fu.doctor_list[selected_indices[0]]))
+    #     # print(selected_indices[0])
+    #     # print(fu.doctor_list[selected_indices[0]].FirstName)
 
-    # def load_entries_for_delete_and_update_page(self, controller):
+    #     print('siiiiiiik = ',fu.doctor_list[selected_indices[0]])
 
-        controller.show_frames('delete_and_update_doctor')
+    # # def load_entries_for_delete_and_update_page(self, controller):
 
-        self.delete_entries_of_selected_doctor(controller)
+    #     controller.show_frames('delete_and_update_doctor')
 
-        controller.frames['delete_and_update_doctor'].Entry_1.insert(
-            END, fu.doctor_list[selected_indices[0]].FirstName)
-        controller.frames['delete_and_update_doctor'].Entry_2.insert(
-            END, fu.doctor_list[selected_indices[0]].LastName)
-        controller.frames['delete_and_update_doctor'].Entry_3.insert(
-            END, fu.doctor_list[selected_indices[0]].Age)
-        controller.frames['delete_and_update_doctor'].Entry_4.set(
-            # fu.doctor_list[selected_indices[0]].VisitorDoctorNationalNumber
-            f'{index.id}. Dr.{index.FirstName} {index.LastName}'
-        )
-        controller.frames['delete_and_update_doctor'].Entry_5.insert(
-            END, fu.doctor_list[selected_indices[0]].NationalNumber)
-        controller.frames['delete_and_update_doctor'].sickness_text.insert(
-            END, fu.doctor_list[selected_indices[0]].Sickness)
+    #     self.delete_entries_of_selected_doctor(controller)
 
-    def delete_entries_of_selected_doctor(self, controller):
-        controller.frames['delete_and_update_doctor'].Entry_1.delete(0, END)
-        controller.frames['delete_and_update_doctor'].Entry_2.delete(0, END)
-        controller.frames['delete_and_update_doctor'].Entry_3.delete(0, END)
-        controller.frames['delete_and_update_doctor'].Entry_5.delete(0, END)
-        controller.frames['delete_and_update_doctor'].sickness_text.delete(
-            '1.0', END)
+    #     controller.frames['delete_and_update_doctor'].Entry_1.insert(
+    #         END, fu.doctor_list[selected_indices[0]].FirstName)
+    #     controller.frames['delete_and_update_doctor'].Entry_2.insert(
+    #         END, fu.doctor_list[selected_indices[0]].LastName)
+    #     controller.frames['delete_and_update_doctor'].Entry_3.insert(
+    #         END, fu.doctor_list[selected_indices[0]].Age)
+    #     controller.frames['delete_and_update_doctor'].Entry_4.set(
+    #         f'{index.Type}'
+    #     )
+    #     controller.frames['delete_and_update_doctor'].Entry_5.insert(
+    #         END, fu.doctor_list[selected_indices[0]].NationalNumber)
+    #     # controller.frames['delete_and_update_doctor'].sickness_text.insert(
+    #     #     END, fu.doctor_list[selected_indices[0]].Sickness)
 
-
+    # def delete_entries_of_selected_doctor(self, controller):
+    #     controller.frames['delete_and_update_doctor'].Entry_1.delete(0, END)
+    #     controller.frames['delete_and_update_doctor'].Entry_2.delete(0, END)
+    #     controller.frames['delete_and_update_doctor'].Entry_3.delete(0, END)
+    #     controller.frames['delete_and_update_doctor'].Entry_5.delete(0, END)
+    #     # controller.frames['delete_and_update_doctor'].sickness_text.delete(
+    #     #     '1.0', END)
 
 
 class add_doctor(Frame):
@@ -127,10 +126,8 @@ class add_doctor(Frame):
         self.Entry_1 = self.Entries(20, 130, 345)
         self.Entry_2 = self.Entries(20, 130, 395)
         self.Entry_3 = self.Entries(20, 130, 445)
-        self.Entry_4 = drop_down(self).VisitorDoctorNationalNumber_cb
+        self.Entry_4 = doctor_drop_down(self).DoctorDegree_cb
         self.Entry_5 = self.Entries(20, 410, 395)
-
-        self.sickness_text = self.scrollbar_for_text()
 
         self.b1 = self.Buttons('Back to Doctor Page', lambda: controller.show_frames(
             self.back_to_doctor_page()), 20, 20, 500)
@@ -143,13 +140,12 @@ class add_doctor(Frame):
         canvas.pack(side='top', fill='both', expand=True)
         canvas.create_image(0, 0, image=self.backgrandImage, anchor="nw")
 
-        self.labels(canvas, 'doctor Information', 450, 50, 24)
+        self.labels(canvas, 'Doctor Information', 450, 50, 24)
         self.labels(canvas, 'First Name :', 80, 350, 11)
         self.labels(canvas, 'Last Name :', 80, 400, 11)
         self.labels(canvas, 'Age :', 55, 450, 11)
-        self.labels(canvas, "Doctor's Name :", 340, 350, 11)
+        self.labels(canvas, "Degree :", 315, 350, 11)
         self.labels(canvas, 'National Number :', 345, 400, 11)
-        self.labels(canvas, 'Sickness :', 317, 450, 11)
 
     def labels(self, Canvas, text, x, y, font_size):
         Canvas.create_text(x, y, text=text,
@@ -162,25 +158,29 @@ class add_doctor(Frame):
         return entry
 
     def get_entries(self, controller):
-        confirm_for_save = False
         get_entry1 = self.Entry_1.get()
         get_entry2 = self.Entry_2.get()
         get_entry3 = self.Entry_3.get()
         get_entry4 = self.show_doctor_name_error()
         if get_entry4 is not False:
             get_entry5 = self.Entry_5.get()
-            get_entry6 = self.sickness_text.get("1.0", END)
 
             try:
                 CheckHumanInput(get_entry5, get_entry1, get_entry2, get_entry3)
-                CheckdoctorInput(get_entry5, get_entry4, get_entry6)
+                CheckDoctorInput(get_entry5, get_entry4)
+                CheckNationalNumberIsExists(get_entry5)
                 show_confirm_massageBox = err_massage.askquestion(
                     "Confirm", "Are you sure?")
                 if show_confirm_massageBox == 'yes':
-                    Insertdoctor(get_entry5, get_entry1, get_entry2,
-                                  get_entry6, get_entry3, get_entry4)
+                    InsertDoctor(get_entry5, get_entry1,
+                                 get_entry2, get_entry3, get_entry4)
                     err_massage.showinfo(
                         'Confirm', 'Save Information Successful')
+                    print(fu.update_doctors_to_dropDown())
+                    controller.frames['add_patient'].Entry_4['values'] = fu.update_doctors_to_dropDown(
+                    )
+                    controller.frames['delete_and_update_patient'].Entry_4['values'] = fu.update_doctors_to_dropDown(
+                    )
                     controller.frames['doctor_page'].update_show_listBox()
                     self.delete_entries()
                     return 'doctor_page'
@@ -193,18 +193,229 @@ class add_doctor(Frame):
         else:
             return 'add_doctor'
 
-        #     massege_error = Receptiondoctor(FirstName=get_entry1, LastName=get_entry2, Age=get_entry3,
-        #                                      VisitorDoctorNationalNumber=get_entry4, NationalNumber=get_entry5,
-        #                                      Sickness=get_entry6)
+    def delete_entries(self):
+        self.Entry_1.delete(0, END)
+        self.Entry_2.delete(0, END)
+        self.Entry_3.delete(0, END)
+        self.Entry_4.set('')
+        self.Entry_5.delete(0, END)
 
-        #     confirm_for_save = self.show_errors(massege_error)
-        # if confirm_for_save is True:
-        #     controller.frames['doctor_page'].update_show_listBox()
-        #     self.delete_entries()
-        #     return 'doctor_page'
-        # else:
-        #     return 'add_doctor'
+    def Buttons(self, button_text, Command, Width, X, Y):
+        Button(self, text=button_text, command=Command,
+               width=Width).place(x=X, y=Y)
+
+    def back_to_doctor_page(self):
+        self.delete_entries()
+        return 'doctor_page'
+
+    def show_doctor_name_error(self):
+        try:
+            get_entry4 = self.Entry_4.get()
+            return get_entry4
+        except:
+            err_massage.showerror("Doctor's Name Error",
+                                  'Please Select a Doctor ')
+            return False
 
 
+class delete_and_update_doctor(Frame):
+    def __init__(self, parent, controller):
+        super().__init__(parent)
+
+        self.windowTitle = 'Delete And Update'
+        self.backGround_image_and_texts('images/7.gif')
+
+        self.Entry_1 = self.Entries(20, 130, 345)
+        self.Entry_2 = self.Entries(20, 130, 395)
+        self.Entry_3 = self.Entries(20, 130, 445)
+        self.Entry_4 = doctor_drop_down(self).DoctorDegree_cb
+        self.Entry_5 = self.Entries(20, 410, 395)
+
+        self.b1 = self.Buttons('Back to Doctor Page', lambda: controller.show_frames(
+            self.back_to_doctor_page(controller)), 20, 20, 500)
+        self.Buttons('Update', lambda: controller.show_frames(
+            self.update_get_entries(controller)), 10, 800, 500)
+        self.Buttons('Delete', lambda: controller.show_frames(
+            self.delete_doctor(controller)), 10, 700, 500)
+
+    def backGround_image_and_texts(self, photo):
+        self.backgrandImage = PhotoImage(file=photo)
+        canvas = Canvas(self)
+        canvas.pack(side='top', fill='both', expand=True)
+        canvas.create_image(0, 0, image=self.backgrandImage, anchor="nw")
+
+        self.labels(canvas, 'Doctor Information', 450, 50, 24)
+        self.labels(canvas, 'First Name :', 80, 350, 11)
+        self.labels(canvas, 'Last Name :', 80, 400, 11)
+        self.labels(canvas, 'Age :', 55, 450, 11)
+        self.labels(canvas, "Degree :", 315, 350, 11)
+        self.labels(canvas, 'National Number :', 345, 400, 11)
+
+    def labels(self, Canvas, text, x, y, font_size):
+        Canvas.create_text(x, y, text=text,
+                           font=("Times New Roman", font_size, BOLD), activefill='blue',
+                           disabledfill='red', fill='red')
+
+    def Entries(self, Width, X, Y):
+        entry = Entry(self, width=Width)
+        entry.place(x=X, y=Y)
+        return entry
+
+    def update_get_entries(self, controller):
+        get_entry1 = self.Entry_1.get()
+        get_entry2 = self.Entry_2.get()
+        get_entry3 = self.Entry_3.get()
+        get_entry4 = self.show_doctor_name_error()
+        if get_entry4 is not False:
+            get_entry5 = self.Entry_5.get()
+
+            try:
+                CheckHumanInput(get_entry5, get_entry1, get_entry2, get_entry3)
+                CheckDoctorInput(get_entry5, get_entry4)
+                CheckNationalNumberIsExists(get_entry5)
+                show_confirm_massageBox = err_massage.askquestion(
+                    "Confirm", "Are you sure?")
+                if show_confirm_massageBox == 'yes':
+                    fu.doctor_list[selected_indices[0]].Update(
+                        get_entry5, get_entry1, get_entry2, get_entry3, get_entry4)
+                    err_massage.showinfo(
+                        'Confirm', 'Update Information Successful')
+                    controller.frames['add_patient'].Entry_4['values'] = fu.update_doctors_to_dropDown(
+                    )
+                    controller.frames['delete_and_update_patient'].Entry_4['values'] = fu.update_doctors_to_dropDown(
+                    )
+                    controller.frames['doctor_page'].update_show_listBox()
+                    self.delete_entries()
+                    return 'doctor_page'
+                else:
+                    print('No')
+                    return 'delete_and_update_doctor'
+            except Exception as ErrorMessage:
+                err_massage.showerror('Error', ErrorMessage)
+                return 'delete_and_update_doctor'
+        else:
+            return 'delete_and_update_doctor'
+
+    def delete_doctor(self, controller):
+        # print('hello')
+        # print(self.Entry_1.get())
+        # print(type(selected_indices[0]))
+        # print(fu.doctor_list[selected_indices[0]])
+        # Deletedoctor(national)
+        show_confirm_massageBox = err_massage.askquestion(
+            "Confirm", "Are you sure?")
+        if show_confirm_massageBox == 'yes':
+            err_massage.showinfo(
+                'Confirm', 'Delete Doctor Successful')
+            fu.doctor_list[selected_indices[0]].Delete
+            del fu.doctor_list[selected_indices[0]]
+            controller.frames['doctor_page'].update_show_listBox()
+            return 'doctor_page'
+        else:
+            return 'delete_and_update_doctor'
+
+    def delete_entries(self):
+        self.Entry_1.delete(0, END)
+        self.Entry_2.delete(0, END)
+        self.Entry_3.delete(0, END)
+        self.Entry_4.set('')
+        self.Entry_5.delete(0, END)
+
+    def Buttons(self, button_text, Command, Width, X, Y):
+        Button(self, text=button_text, command=Command,
+               width=Width).place(x=X, y=Y)
+
+    def back_to_doctor_page(self, controller):
+        self.delete_entries()
+        return 'doctor_page'
+
+    def show_doctor_name_error(self):
+        try:
+            get_entry4 = self.Entry_4.get()
+            return get_entry4
+        except:
+            err_massage.showerror("Doctor's Name Error",
+                                  'Please Select a Doctor ')
+            return False
 
 
+class search_doctor(Toplevel):
+    def __init__(self, parent, controller):
+        super().__init__(parent)
+
+        self.position()
+
+        self.labels('Search by Firstname :', 5, 15)
+        self.labels('Search by Lastname :', 5, 60)
+
+        self.entry1 = self.entries(25, 132, 15)
+        self.entry2 = self.entries(25, 132, 60)
+
+        self.button1 = self.buttons(
+            'Done', 8, lambda: self.get_entries(controller), 230, 120)
+        self.button2 = self.buttons(
+            'Cancel', 8, lambda: self.destroy(), 160, 120)
+
+    def position(self):
+        w = 300
+        h = 150
+        ws = self.winfo_screenwidth()
+        hs = self.winfo_screenheight()
+        x = (ws/2) - (w/8)
+        y = (hs/50*28) - (h/2)
+        self.title('Search')
+        self.geometry('%dx%d+%d+%d' % (w, h, x, y))
+        self.resizable(width=False, height=False)
+
+    def labels(self, label_text, X, Y):
+        label = Label(self, text=label_text, font=("Helvetica", 8, 'bold'))
+        label.place(x=X, y=Y)
+
+    def entries(self, Width, X, Y):
+        entry = Entry(self, width=Width)
+        entry.place(x=X, y=Y)
+        return entry
+
+    def buttons(self, button_text, Width, Command, X, Y):
+        button = Button(self, text=button_text, width=Width, command=Command)
+        button.place(x=X, y=Y)
+
+    def get_entries(self, controller):
+        get_Entry1 = self.entry1.get()
+        get_Entry2 = self.entry2.get()
+        print('get_Entry1 = ', get_Entry1)
+        print('get_Entry2 = ', get_Entry2)
+        search_list = FindDoctor(FirstName=get_Entry1, LastName=get_Entry2)
+        print('size = ', search_list)
+        if len(search_list) == 0:
+            self.destroy()
+            err_massage.showerror('Error', 'Not Found Any Doctor !!!')
+            controller.frames['doctor_page'].update_show_listBox()
+
+        else:
+            if get_Entry1 == '' and get_Entry2 == '':
+                err_massage.showerror(
+                    'Error', 'There is not any Entry for Search !!!')
+            else:
+                self.destroy()
+                err_massage.showinfo('Confirm', 'Search Doctor Successful')
+                controller.frames['doctor_page'].show_listBox_for_search(
+                    search_list)
+
+
+class doctor_drop_down:
+    def __init__(self, parent):
+
+        selected_DoctorDegree = StringVar()
+
+        self.DoctorDegree_cb = ttk.Combobox(
+            parent, textvariable=selected_DoctorDegree, width=20, height=5)
+        self.DoctorDegree_cb['values'] = TypeList
+        self.DoctorDegree_cb['state'] = 'readonly'
+        self.DoctorDegree_cb.place(x=408, y=340)
+        self.DoctorDegree_cb.bind(
+            '<<ComboboxSelected>>', self.DoctorDegree_changed)
+
+    def DoctorDegree_changed(self, event):
+        msg = f'You selected {self.DoctorDegree_cb.get()}!'
+        showinfo(title='Result', message=msg)

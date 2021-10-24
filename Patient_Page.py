@@ -128,7 +128,7 @@ class add_patient(Frame):
         self.Entry_1 = self.Entries(20, 130, 345)
         self.Entry_2 = self.Entries(20, 130, 395)
         self.Entry_3 = self.Entries(20, 130, 445)
-        self.Entry_4 = drop_down(self).VisitorDoctorNationalNumber_cb
+        self.Entry_4 = patient_drop_down(self).VisitorDoctorNationalNumber_cb
         self.Entry_5 = self.Entries(20, 410, 395)
 
         self.sickness_text = self.scrollbar_for_text()
@@ -260,7 +260,7 @@ class delete_and_update_patient(Frame):
         self.Entry_1 = self.Entries(20, 130, 345)
         self.Entry_2 = self.Entries(20, 130, 395)
         self.Entry_3 = self.Entries(20, 130, 445)
-        self.Entry_4 = drop_down(self).VisitorDoctorNationalNumber_cb
+        self.Entry_4 = patient_drop_down(self).VisitorDoctorNationalNumber_cb
         self.Entry_5 = self.Entries(20, 410, 395)
 
         self.sickness_text = self.scrollbar_for_text()
@@ -308,7 +308,6 @@ class delete_and_update_patient(Frame):
             try:
                 CheckHumanInput(get_entry5, get_entry1, get_entry2, get_entry3)
                 CheckPatientInput(get_entry5, get_entry4, get_entry6)
-                CheckNationalNumberIsExists(get_entry5)
                 show_confirm_massageBox = err_massage.askquestion(
                     "Confirm", "Are you sure?")
                 if show_confirm_massageBox == 'yes':
@@ -471,12 +470,17 @@ class search_patient(Toplevel):
             controller.frames['patient_page'].update_show_listBox()
 
         else:
-            controller.frames['patient_page'].show_listBox_for_search(
-                search_list)
-            self.destroy()
+            if get_Entry1 == '' and get_Entry2 == '':
+                err_massage.showerror(
+                    'Error', 'There is not any Entry for Search !!!')
+            else:
+                self.destroy()
+                err_massage.showinfo('Confirm', 'Search Patient Successful')
+                controller.frames['patient_page'].show_listBox_for_search(
+                    search_list)
 
 
-class drop_down:
+class patient_drop_down:
     def __init__(self, parent):
 
         selected_VisitorDoctorNationalNumber = StringVar()

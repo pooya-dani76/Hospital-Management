@@ -256,6 +256,7 @@ class Medicine:
         try:
             CheckMedicineInput(NumberOfSold)
             self.Stock -= NumberOfSold
+            CheckMedicineInput(self.Stock)
             UpdateMedicine(self.id, self.Name, self.Stock, self.Description)
         except Exception as ErrorMessage:
             return ErrorMessage, False
@@ -329,4 +330,3 @@ class Medicine:
         """
         DeleteMedicine(self.id)
 
-# print()

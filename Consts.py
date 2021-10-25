@@ -1,7 +1,7 @@
 from SqliteFunctions import *
 
 TypeList = ['General Practitioner',
-              'Eye Doctor', 'Lung doctor', 'Kidney doctor']
+            'Eye Doctor', 'Lung doctor', 'Kidney doctor']
 
 
 def WithoutDigit(text: str) -> bool:
@@ -58,35 +58,35 @@ def CheckHumanInput(NationalNumber: str, FirstName: str, LastName: str, Age: str
         TypeError: When ```Age``` Contains Characters
     """
     if NationalNumber == "":
-        raise TypeError("National Number Cannot Be Empty!")  
+        raise TypeError("National Number Cannot Be Empty!")
 
     if not WithoutChar(NationalNumber):
         raise TypeError(
             "National Number doesn't Should Be Contains Characters!")
 
     if len(NationalNumber) != 10:
-        raise TypeError("National Number Should Be 10 Digits!") 
+        raise TypeError("National Number Should Be 10 Digits!")
 
     if FirstName == "":
-        raise TypeError("First Name Cannot Be Empty!")           
+        raise TypeError("First Name Cannot Be Empty!")
 
     if not WithoutDigit(FirstName):
         raise TypeError("First Name doesn't Should Be Contains Digits!")
 
     if len(FirstName) > 20:
-        raise TypeError('First Name is too Long!')    
+        raise TypeError('First Name is too Long!')
 
     if LastName == "":
-        raise TypeError("Last Name Cannot Be Empty!")     
+        raise TypeError("Last Name Cannot Be Empty!")
 
     if not WithoutDigit(LastName):
         raise TypeError("Last Name doesn't Should Be Contains Digits!")
 
     if len(LastName) > 20:
-        raise TypeError('First Name is too Long!')     
+        raise TypeError('First Name is too Long!')
 
     if Age == "":
-        raise TypeError('Age Cannot be Empty!')    
+        raise TypeError('Age Cannot be Empty!')
 
     try:
         int(Age)
@@ -94,10 +94,10 @@ def CheckHumanInput(NationalNumber: str, FirstName: str, LastName: str, Age: str
         raise TypeError("Age doesn't Should Be Contains Characters!")
 
     if int(Age) > 130:
-        raise TypeError('Maximum Age is 130!') 
-        
-    if int(Age) < 1 :
-        raise TypeError('Minimum Age is 1!')        
+        raise TypeError('Maximum Age is 130!')
+
+    if int(Age) < 1:
+        raise TypeError('Minimum Age is 1!')
 
 
 def CheckDoctorInput(NationalNumber: str, Type: str) -> None:
@@ -119,7 +119,7 @@ def CheckDoctorInput(NationalNumber: str, Type: str) -> None:
         raise TypeError("Type is Invalid!")
 
 
-def CheckPatientInput(NationalNumber: str, VisitorDoctorNationalNumber: str, Sickness: str)-> None:
+def CheckPatientInput(NationalNumber: str, VisitorDoctorNationalNumber: str, Sickness: str) -> None:
     """Check Class ```Patient``` Arg(s) to be Right Shape
 
     Args:
@@ -130,10 +130,12 @@ def CheckPatientInput(NationalNumber: str, VisitorDoctorNationalNumber: str, Sic
         TypeError: When ```VisitorDoctorNationalNumber``` is not in Hospital's Doctors
         PermissionError: When A Doctor Cannot be Own Doctor(```NationalNumber``` = ```VisitorDoctorNationalNumber```)
     """
-    if  len(Sickness) == 1 :
+    if not all(list(map(lambda x: (ord(x) <= 57 and ord(x) >= 48) or
+            (ord(x) <= 90 and ord(x) >= 65) or
+            (ord(x) <= 122 and ord(x) >= 97), Sickness))):
         raise TypeError('Sickness Cannot be Empty!')
 
-    Doctors = list(map(lambda x: x[1] , AllDoctors()))
+    Doctors = list(map(lambda x: x[1], AllDoctors()))
     if VisitorDoctorNationalNumber not in Doctors:
         raise TypeError("Doctor is not in This Hospital!")
 
@@ -156,12 +158,20 @@ def CheckMedicineInput(Name: str, Stock: str, Description: str) -> None:
         raise TypeError("Drug Name Cannot Be Empty!")
 
     if Name in list(map(lambda x: x[1], AllMedicines())):
-        raise TypeError('This Medicine Has Already Exist in This Hospital!')    
+        raise TypeError('This Medicine Has Already Exist in This Hospital!')
 
-    if Description == "":
-        raise TypeError("Drug Name Cannot Be Empty!")    
+    if not all(list(map(lambda x: (ord(x) <= 57 and ord(x) >= 48) or
+            (ord(x) <= 90 and ord(x) >= 65) or
+            (ord(x) <= 122 and ord(x) >= 97), Description))):
+        raise TypeError('Description Cannot be Empty!')
+
+    if Stock == "":
+        raise TypeError('Stock Cannot be Empty!')    
 
     try:
-      int(Stock)
+        int(Stock)
     except:
-      raise TypeError("Stock doesn't Should Be Contains Characters!")        
+        raise TypeError("Stock doesn't Should Be Contains Characters!")
+
+    if Stock < 0:
+        raise TypeError('Stock Cannot be Negative!')

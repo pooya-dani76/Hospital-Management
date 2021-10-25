@@ -14,11 +14,11 @@ class hospital_page(Frame):
         backGround_image_and_text(self, 'images/8.gif', 'Wellcome to Hospital')
 
         self.create_button('Patient Page', 340, 350,
-                           lambda: controller.show_frames(self.show_error_for_empty_patientList()))
+                           lambda: controller.show_frames(self.go_to_patient_page(controller)))
         self.create_button('Doctor Page', 340, 400,
-                           lambda: controller.show_frames('doctor_page'))
+                           lambda: controller.show_frames(self.go_to_doctor_page(controller)))
         self.create_button('Drug Page', 340, 450,
-                           lambda: controller.show_frames('drug_page'))
+                           lambda: controller.show_frames(self.go_to_drug_page(controller)))
         self.create_button('Exit', 340, 500,
                            lambda: controller.destroy())
 
@@ -26,10 +26,19 @@ class hospital_page(Frame):
         Button(self, text=button_text, width=30,
                height=2, command=Command).place(x=X, y=Y)
 
-    def show_error_for_empty_patientList(self):
+    def go_to_patient_page(self, controller):
         if len(LoadDoctors()) == 0:
             err_massage.showerror('Error', "Doctor's List is Empty !!!\
                 \nClick Doctor Page Button to Add a Doctor")
             return 'hospital_page'
         else:
+            controller.frames['patient_page'].update_show_listBox()
             return 'patient_page'
+
+    def go_to_doctor_page(self, controller):
+        controller.frames['doctor_page'].update_show_listBox()
+        return 'doctor_page'
+
+    def go_to_drug_page(self, controller):
+        controller.frames['drug_page'].update_show_listBox()
+        return 'drug_page'

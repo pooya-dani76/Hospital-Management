@@ -74,46 +74,46 @@ class doctor_page(Frame):
         print('fu.doctor_list = ', fu.doctor_list)
         global selected_indices
         selected_indices = self.listBox.curselection()
-    #     print('selected_indices = ', selected_indices)
-    #     index = list(filter(lambda x: x.NationalNumber ==
-    #                         fu.patient_list[selected_indices[0]].VisitorDoctorNationalNumber, LoadDoctors()))[0]
-    #     print('index ==== ', index)
-    #     # selected_langs = ",".join([self.listBox.get(i)
-    #     #                           for i in selected_indices])
-    #     # msg = f'You selected: {selected_langs}'
-    #     # print(type(fu.doctor_list[selected_indices[0]]))
-    #     # print(selected_indices[0])
-    #     # print(fu.doctor_list[selected_indices[0]].FirstName)
+        print('selected_indices = ', selected_indices)
+        # index = list(filter(lambda x: x.NationalNumber ==
+        #                     fu.patient_list[selected_indices[0]].VisitorDoctorNationalNumber, LoadDoctors()))[0]
+        # print('index ==== ', index)
+        # selected_langs = ",".join([self.listBox.get(i)
+        #                           for i in selected_indices])
+        # msg = f'You selected: {selected_langs}'
+        # print(type(fu.doctor_list[selected_indices[0]]))
+        # print(selected_indices[0])
+        # print(fu.doctor_list[selected_indices[0]].FirstName)
 
-    #     print('siiiiiiik = ',fu.doctor_list[selected_indices[0]])
+        print('siiiiiiik = ', fu.doctor_list[selected_indices[0]])
 
-    # # def load_entries_for_delete_and_update_page(self, controller):
+    # def load_entries_for_delete_and_update_page(self, controller):
 
-    #     controller.show_frames('delete_and_update_doctor')
+        controller.show_frames('delete_and_update_doctor')
 
-    #     self.delete_entries_of_selected_doctor(controller)
+        self.delete_entries_of_selected_doctor(controller)
 
-    #     controller.frames['delete_and_update_doctor'].Entry_1.insert(
-    #         END, fu.doctor_list[selected_indices[0]].FirstName)
-    #     controller.frames['delete_and_update_doctor'].Entry_2.insert(
-    #         END, fu.doctor_list[selected_indices[0]].LastName)
-    #     controller.frames['delete_and_update_doctor'].Entry_3.insert(
-    #         END, fu.doctor_list[selected_indices[0]].Age)
-    #     controller.frames['delete_and_update_doctor'].Entry_4.set(
-    #         f'{index.Type}'
-    #     )
-    #     controller.frames['delete_and_update_doctor'].Entry_5.insert(
-    #         END, fu.doctor_list[selected_indices[0]].NationalNumber)
-    #     # controller.frames['delete_and_update_doctor'].sickness_text.insert(
-    #     #     END, fu.doctor_list[selected_indices[0]].Sickness)
+        controller.frames['delete_and_update_doctor'].Entry_1.insert(
+            END, fu.doctor_list[selected_indices[0]].FirstName)
+        controller.frames['delete_and_update_doctor'].Entry_2.insert(
+            END, fu.doctor_list[selected_indices[0]].LastName)
+        controller.frames['delete_and_update_doctor'].Entry_3.insert(
+            END, fu.doctor_list[selected_indices[0]].Age)
+        controller.frames['delete_and_update_doctor'].Entry_4.set(
+            f'{fu.doctor_list[selected_indices[0]].Type}'
+        )
+        controller.frames['delete_and_update_doctor'].Entry_5.insert(
+            END, fu.doctor_list[selected_indices[0]].NationalNumber)
+        # controller.frames['delete_and_update_doctor'].sickness_text.insert(
+        #     END, fu.doctor_list[selected_indices[0]].Sickness)
 
-    # def delete_entries_of_selected_doctor(self, controller):
-    #     controller.frames['delete_and_update_doctor'].Entry_1.delete(0, END)
-    #     controller.frames['delete_and_update_doctor'].Entry_2.delete(0, END)
-    #     controller.frames['delete_and_update_doctor'].Entry_3.delete(0, END)
-    #     controller.frames['delete_and_update_doctor'].Entry_5.delete(0, END)
-    #     # controller.frames['delete_and_update_doctor'].sickness_text.delete(
-    #     #     '1.0', END)
+    def delete_entries_of_selected_doctor(self, controller):
+        controller.frames['delete_and_update_doctor'].Entry_1.delete(0, END)
+        controller.frames['delete_and_update_doctor'].Entry_2.delete(0, END)
+        controller.frames['delete_and_update_doctor'].Entry_3.delete(0, END)
+        controller.frames['delete_and_update_doctor'].Entry_5.delete(0, END)
+        # controller.frames['delete_and_update_doctor'].sickness_text.delete(
+        #     '1.0', END)
 
 
 class add_doctor(Frame):
@@ -161,14 +161,14 @@ class add_doctor(Frame):
         get_entry1 = self.Entry_1.get()
         get_entry2 = self.Entry_2.get()
         get_entry3 = self.Entry_3.get()
-        get_entry4 = self.show_doctor_name_error()
+        get_entry4 = self.show_degree_error()
         if get_entry4 is not False:
             get_entry5 = self.Entry_5.get()
 
             try:
                 CheckHumanInput(get_entry5, get_entry1, get_entry2, get_entry3)
                 CheckDoctorInput(get_entry5, get_entry4)
-                CheckNationalNumberIsExists(get_entry5)
+                CheckDoctorNationalNumberIsExists(get_entry5)
                 show_confirm_massageBox = err_massage.askquestion(
                     "Confirm", "Are you sure?")
                 if show_confirm_massageBox == 'yes':
@@ -208,7 +208,7 @@ class add_doctor(Frame):
         self.delete_entries()
         return 'doctor_page'
 
-    def show_doctor_name_error(self):
+    def show_degree_error(self):
         try:
             get_entry4 = self.Entry_4.get()
             return get_entry4
@@ -265,14 +265,15 @@ class delete_and_update_doctor(Frame):
         get_entry1 = self.Entry_1.get()
         get_entry2 = self.Entry_2.get()
         get_entry3 = self.Entry_3.get()
-        get_entry4 = self.show_doctor_name_error()
+        get_entry4 = self.show_degree_error()
         if get_entry4 is not False:
             get_entry5 = self.Entry_5.get()
 
             try:
                 CheckHumanInput(get_entry5, get_entry1, get_entry2, get_entry3)
                 CheckDoctorInput(get_entry5, get_entry4)
-                CheckNationalNumberIsExists(get_entry5)
+                if fu.doctor_list[selected_indices[0]].NationalNumber != get_entry5:
+                    CheckDoctorNationalNumberIsExists(get_entry5)
                 show_confirm_massageBox = err_massage.askquestion(
                     "Confirm", "Are you sure?")
                 if show_confirm_massageBox == 'yes':
@@ -285,6 +286,7 @@ class delete_and_update_doctor(Frame):
                     controller.frames['delete_and_update_patient'].Entry_4['values'] = fu.update_doctors_to_dropDown(
                     )
                     controller.frames['doctor_page'].update_show_listBox()
+                    controller.frames['patient_page'].update_show_listBox()
                     self.delete_entries()
                     return 'doctor_page'
                 else:
@@ -310,6 +312,11 @@ class delete_and_update_doctor(Frame):
             fu.doctor_list[selected_indices[0]].Delete
             del fu.doctor_list[selected_indices[0]]
             controller.frames['doctor_page'].update_show_listBox()
+            controller.frames['patient_page'].update_show_listBox()
+            controller.frames['add_patient'].Entry_4['values'] = fu.update_doctors_to_dropDown(
+            )
+            controller.frames['delete_and_update_patient'].Entry_4['values'] = fu.update_doctors_to_dropDown(
+            )
             return 'doctor_page'
         else:
             return 'delete_and_update_doctor'
@@ -329,7 +336,7 @@ class delete_and_update_doctor(Frame):
         self.delete_entries()
         return 'doctor_page'
 
-    def show_doctor_name_error(self):
+    def show_degree_error(self):
         try:
             get_entry4 = self.Entry_4.get()
             return get_entry4

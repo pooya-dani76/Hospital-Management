@@ -18,7 +18,7 @@ class pages_management(Tk):
 
         for F in (hospital_page, patient_page, doctor_page,
                   drug_page, add_patient, delete_and_update_patient,
-                  add_doctor,delete_and_update_doctor):
+                  add_doctor,delete_and_update_doctor,add_drug,delete_and_update_drug):
             frame = F(main_Frame, self)
             self.frames[F.__name__] = frame
             frame.grid(row=0, column=0, sticky="nsew")

@@ -175,7 +175,7 @@ class add_patient(Frame):
             try:
                 CheckHumanInput(get_entry5, get_entry1, get_entry2, get_entry3)
                 CheckPatientInput(get_entry5, get_entry4, get_entry6)
-                CheckNationalNumberIsExists(get_entry5)
+                CheckPatientNationalNumberIsExists(get_entry5)
                 show_confirm_massageBox = err_massage.askquestion(
                     "Confirm", "Are you sure?")
                 if show_confirm_massageBox == 'yes':
@@ -308,6 +308,8 @@ class delete_and_update_patient(Frame):
             try:
                 CheckHumanInput(get_entry5, get_entry1, get_entry2, get_entry3)
                 CheckPatientInput(get_entry5, get_entry4, get_entry6)
+                if fu.patient_list[selected_indices[0]].NationalNumber != get_entry5:
+                    CheckPatientNationalNumberIsExists(get_entry5)
                 show_confirm_massageBox = err_massage.askquestion(
                     "Confirm", "Are you sure?")
                 if show_confirm_massageBox == 'yes':
@@ -487,7 +489,7 @@ class patient_drop_down:
 
         self.VisitorDoctorNationalNumber_cb = ttk.Combobox(
             parent, textvariable=selected_VisitorDoctorNationalNumber, width=20, height=5)
-        self.VisitorDoctorNationalNumber_cb['values'] = VisitorDoctorNationalNumber_list
+        self.VisitorDoctorNationalNumber_cb['values'] = fu.update_doctors_to_dropDown()
         self.VisitorDoctorNationalNumber_cb['state'] = 'readonly'
         self.VisitorDoctorNationalNumber_cb.place(x=408, y=340)
         self.VisitorDoctorNationalNumber_cb.bind(

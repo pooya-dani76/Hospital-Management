@@ -19,17 +19,20 @@ def labels(Canvas, Text, x, y, font_size):
                        disabledfill='red', fill='green')
 
 
+# [y.NationalNumber  for y in mylist].index(x.NationalNumber)+1
 
 def update_doctors_to_dropDown():
+    mylist = LoadDoctors()
     VisitorDoctorNationalNumber_list = list(
         map(lambda x: f'{x.id}. Dr.{x.FirstName} {x.LastName}', LoadDoctors()))
     return VisitorDoctorNationalNumber_list
-
 
 
 patient_list = []
 
 
 doctor_list = []
+
+drug_list = []
 # selected_indices = None
 # patient_list = LoadPatients()

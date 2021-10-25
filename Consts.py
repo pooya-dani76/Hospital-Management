@@ -130,9 +130,7 @@ def CheckPatientInput(NationalNumber: str, VisitorDoctorNationalNumber: str, Sic
         TypeError: When ```VisitorDoctorNationalNumber``` is not in Hospital's Doctors
         PermissionError: When A Doctor Cannot be Own Doctor(```NationalNumber``` = ```VisitorDoctorNationalNumber```)
     """
-    if not all(list(map(lambda x: (ord(x) <= 57 and ord(x) >= 48) or
-            (ord(x) <= 90 and ord(x) >= 65) or
-            (ord(x) <= 122 and ord(x) >= 97), Sickness))):
+    if all(list(map(lambda x: ord(x) == 10 or ord(x) == 32, Sickness))):
         raise TypeError('Sickness Cannot be Empty!')
 
     Doctors = list(map(lambda x: x[1], AllDoctors()))
@@ -160,13 +158,11 @@ def CheckMedicineInput(Name: str, Stock: str, Description: str) -> None:
     if Name in list(map(lambda x: x[1], AllMedicines())):
         raise TypeError('This Medicine Has Already Exist in This Hospital!')
 
-    if not all(list(map(lambda x: (ord(x) <= 57 and ord(x) >= 48) or
-            (ord(x) <= 90 and ord(x) >= 65) or
-            (ord(x) <= 122 and ord(x) >= 97), Description))):
+    if  all(list(map(lambda x: ord(x) == 10 or ord(x) == 32, Description))):
         raise TypeError('Description Cannot be Empty!')
 
     if Stock == "":
-        raise TypeError('Stock Cannot be Empty!')    
+        raise TypeError('Stock Cannot be Empty!')
 
     try:
         int(Stock)

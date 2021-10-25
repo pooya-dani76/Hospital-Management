@@ -330,3 +330,4 @@ class Medicine:
         """
         DeleteMedicine(self.id)
 
+print(ord(' '))

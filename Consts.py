@@ -194,3 +194,5 @@ def CheckMedicineInput(Name: str, Stock: str, Description: str) -> None:
 
     if int(Stock) < 0:
         raise TypeError('Stock Cannot be Negative!')
+
+HospitalPageHelp = ''''''

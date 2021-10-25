@@ -126,7 +126,7 @@ def CheckHumanInput(NationalNumber: str, FirstName: str, LastName: str, Age: str
         raise TypeError('Minimum Age is 1!')
 
 
-def CheckDoctorInput(NationalNumber: str, Type: str) -> None:
+def CheckDoctorInput(Type: str) -> None:
     """Check Class ```Doctor``` Arg(s) to be Right Shape
 
     Args:

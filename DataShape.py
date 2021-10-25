@@ -329,5 +329,3 @@ class Medicine:
         """Delete This Medicine From ```Medicines``` Table When Deleting its Class
         """
         DeleteMedicine(self.id)
-
-print(ord(' '))

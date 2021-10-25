@@ -12,7 +12,7 @@ class doctor_page(Frame):
         super().__init__(parent)
 
         self.windowTitle = 'Doctor Page'
-        backGround_image_and_text(self, 'images/1.gif', 'Doctor Page')
+        backGround_image_and_text(self, 'images/14.gif', 'Doctor Page')
 
         self.listBox = self.scrollbar_for_listbox_right()
         self.listBox.bind('<Double-1>',
@@ -67,8 +67,12 @@ class doctor_page(Frame):
         return listBox
 
     def open_search_window(self, controller):
-        mainWindow = search_doctor(self, controller)
-        mainWindow.grab_set()
+        if len(fu.doctor_list) == 0:
+            err_massage.showerror(
+                'Error', 'There is not any Doctor in List !!!')
+        else:
+            mainWindow = search_doctor(self, controller)
+            mainWindow.grab_set()
 
     def item_selected(self, controller, even):
         print('fu.doctor_list = ', fu.doctor_list)
@@ -402,7 +406,7 @@ class search_doctor(Toplevel):
         else:
             if get_Entry1 == '' and get_Entry2 == '':
                 err_massage.showerror(
-                    'Error', 'There is not any Entry for Search !!!')
+                    'Error', 'There is not any Entry for Search !!!\n\n Try Again ... ')
             else:
                 self.destroy()
                 err_massage.showinfo('Confirm', 'Search Doctor Successful')

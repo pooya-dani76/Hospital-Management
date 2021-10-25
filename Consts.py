@@ -188,5 +188,5 @@ def CheckMedicineInput(Name: str, Stock: str, Description: str) -> None:
     except:
         raise TypeError("Stock doesn't Should Be Contains Characters!")
 
-    if Stock < 0:
+    if int(Stock) < 0:
         raise TypeError('Stock Cannot be Negative!')

@@ -67,8 +67,12 @@ class drug_page(Frame):
         return listBox
 
     def open_search_window(self, controller):
-        mainWindow = search_drug(self, controller)
-        mainWindow.grab_set()
+        if len(fu.drug_list) == 0:
+            err_massage.showerror(
+                'Error', 'There is not any Drug in List !!!')
+        else:
+            mainWindow = search_drug(self, controller)
+            mainWindow.grab_set()
 
     def item_selected(self, controller, even):
         print('fu.drug_list = ', fu.drug_list)
@@ -382,7 +386,7 @@ class search_drug(Toplevel):
         else:
             if get_Entry1 == '':
                 err_massage.showerror(
-                    'Error', 'There is not any Entry for Search !!!')
+                    'Error', 'There is not any Entry for Search !!!\n\n Try Again ... ')
             else:
                 self.destroy()
                 err_massage.showinfo('Confirm', 'Search Drug Successful')

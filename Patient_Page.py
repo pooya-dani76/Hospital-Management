@@ -68,8 +68,12 @@ class patient_page(Frame):
         return listBox
 
     def open_search_window(self, controller):
-        mainWindow = search_patient(self, controller)
-        mainWindow.grab_set()
+        if len(fu.patient_list) == 0:
+            err_massage.showerror(
+                'Error', 'There is not any Patient in List !!!')
+        else:
+            mainWindow = search_patient(self, controller)
+            mainWindow.grab_set()
 
     def item_selected(self, controller, even):
         # fu.patient_list = LoadPatients()
@@ -474,7 +478,7 @@ class search_patient(Toplevel):
         else:
             if get_Entry1 == '' and get_Entry2 == '':
                 err_massage.showerror(
-                    'Error', 'There is not any Entry for Search !!!')
+                    'Error', 'There is not any Entry for Search !!!\n\n Try Again ... ')
             else:
                 self.destroy()
                 err_massage.showinfo('Confirm', 'Search Patient Successful')
@@ -489,7 +493,8 @@ class patient_drop_down:
 
         self.VisitorDoctorNationalNumber_cb = ttk.Combobox(
             parent, textvariable=selected_VisitorDoctorNationalNumber, width=20, height=5)
-        self.VisitorDoctorNationalNumber_cb['values'] = fu.update_doctors_to_dropDown()
+        self.VisitorDoctorNationalNumber_cb['values'] = fu.update_doctors_to_dropDown(
+        )
         self.VisitorDoctorNationalNumber_cb['state'] = 'readonly'
         self.VisitorDoctorNationalNumber_cb.place(x=408, y=340)
         self.VisitorDoctorNationalNumber_cb.bind(

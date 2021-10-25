@@ -38,14 +38,11 @@ def CheckPatientNationalNumberIsExists(NationalNumber: str):
         KeyError: when Given National Number Exists in DataBase
     """
     if len(list(filter(lambda x: x[1] == NationalNumber, AllPatients()))) > 0:
-        raise TypeError('This National Number is Exists in This Hospital!')
-
-
-
+        raise TypeError('Another Patient with This National Number is Exists in This Hospital!')
 
 
 def CheckDoctorNationalNumberIsExists(NationalNumber: str):
-    """Check Given National Number is Exists in DataBase or not
+    """Check Given Doctor National Number is Exists in DataBase or not
 
     Args:
         NationalNumber (str): The National Number
@@ -54,10 +51,20 @@ def CheckDoctorNationalNumberIsExists(NationalNumber: str):
         KeyError: when Given National Number Exists in DataBase
     """
     if len(list(filter(lambda x: x[1] == NationalNumber, AllDoctors()))) > 0:
-        raise TypeError('This National Number is Exists in This Hospital!')
+        raise TypeError('Another Doctor with This National Number is Exists in This Hospital!')
 
 
+def CheckMedicineNameIsExists(Name: str):
+    """Check Given Medicine Name is Exists in DataBase or not
 
+    Args:
+        Name (str): The Medicine Name
+
+    Raises:
+        KeyError: when Given Medicine Name Exists in DataBase
+    """
+    if len(list(filter(lambda x: x[1] == Name, AllMedicines()))) > 0:
+        raise TypeError('Another Medicine with Same Name is Already Exists!')
 
 
 def CheckHumanInput(NationalNumber: str, FirstName: str, LastName: str, Age: str) -> None:

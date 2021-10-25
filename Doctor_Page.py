@@ -12,7 +12,7 @@ class doctor_page(Frame):
         super().__init__(parent)
 
         self.windowTitle = 'Doctor Page'
-        backGround_image_and_text(self, 'images/14.gif', 'Doctor Page')
+        backGround_image_and_text(self, 'images/1.gif', 'Doctor Page')
 
         self.listBox = self.scrollbar_for_listbox_right()
         self.listBox.bind('<Double-1>',
@@ -89,8 +89,6 @@ class doctor_page(Frame):
         # print(selected_indices[0])
         # print(fu.doctor_list[selected_indices[0]].FirstName)
 
-        print('siiiiiiik = ', fu.doctor_list[selected_indices[0]])
-
     # def load_entries_for_delete_and_update_page(self, controller):
 
         controller.show_frames('delete_and_update_doctor')
@@ -125,13 +123,13 @@ class add_doctor(Frame):
         super().__init__(parent)
 
         self.windowTitle = 'Add Doctor'
-        self.backGround_image_and_texts('images/7.gif')
+        self.backGround_image_and_texts('images/16.gif')
 
-        self.Entry_1 = self.Entries(20, 130, 345)
-        self.Entry_2 = self.Entries(20, 130, 395)
-        self.Entry_3 = self.Entries(20, 130, 445)
+        self.Entry_1 = self.Entries(20, 680, 150)
+        self.Entry_2 = self.Entries(20, 680, 200)
+        self.Entry_3 = self.Entries(20, 680, 250)
         self.Entry_4 = doctor_drop_down(self).DoctorDegree_cb
-        self.Entry_5 = self.Entries(20, 410, 395)
+        self.Entry_5 = self.Entries(20, 680, 300)
 
         self.b1 = self.Buttons('Back to Doctor Page', lambda: controller.show_frames(
             self.back_to_doctor_page()), 20, 20, 500)
@@ -145,11 +143,11 @@ class add_doctor(Frame):
         canvas.create_image(0, 0, image=self.backgrandImage, anchor="nw")
 
         self.labels(canvas, 'Doctor Information', 450, 50, 24)
-        self.labels(canvas, 'First Name :', 80, 350, 11)
-        self.labels(canvas, 'Last Name :', 80, 400, 11)
-        self.labels(canvas, 'Age :', 55, 450, 11)
-        self.labels(canvas, "Degree :", 315, 350, 11)
-        self.labels(canvas, 'National Number :', 345, 400, 11)
+        self.labels(canvas, 'First Name :', 585, 160, 11)
+        self.labels(canvas, 'Last Name :', 585, 210, 11)
+        self.labels(canvas, 'Age :', 565, 260, 11)
+        self.labels(canvas, "Degree :", 575, 360, 11)
+        self.labels(canvas, 'National Number :', 605, 310, 11)
 
     def labels(self, Canvas, text, x, y, font_size):
         Canvas.create_text(x, y, text=text,
@@ -227,13 +225,13 @@ class delete_and_update_doctor(Frame):
         super().__init__(parent)
 
         self.windowTitle = 'Delete And Update'
-        self.backGround_image_and_texts('images/7.gif')
+        self.backGround_image_and_texts('images/15.gif')
 
-        self.Entry_1 = self.Entries(20, 130, 345)
-        self.Entry_2 = self.Entries(20, 130, 395)
-        self.Entry_3 = self.Entries(20, 130, 445)
+        self.Entry_1 = self.Entries(20, 680, 150)
+        self.Entry_2 = self.Entries(20, 680, 200)
+        self.Entry_3 = self.Entries(20, 680, 250)
         self.Entry_4 = doctor_drop_down(self).DoctorDegree_cb
-        self.Entry_5 = self.Entries(20, 410, 395)
+        self.Entry_5 = self.Entries(20, 680, 300)
 
         self.b1 = self.Buttons('Back to Doctor Page', lambda: controller.show_frames(
             self.back_to_doctor_page(controller)), 20, 20, 500)
@@ -249,11 +247,11 @@ class delete_and_update_doctor(Frame):
         canvas.create_image(0, 0, image=self.backgrandImage, anchor="nw")
 
         self.labels(canvas, 'Doctor Information', 450, 50, 24)
-        self.labels(canvas, 'First Name :', 80, 350, 11)
-        self.labels(canvas, 'Last Name :', 80, 400, 11)
-        self.labels(canvas, 'Age :', 55, 450, 11)
-        self.labels(canvas, "Degree :", 315, 350, 11)
-        self.labels(canvas, 'National Number :', 345, 400, 11)
+        self.labels(canvas, 'First Name :', 585, 160, 11)
+        self.labels(canvas, 'Last Name :', 585, 210, 11)
+        self.labels(canvas, 'Age :', 565, 260, 11)
+        self.labels(canvas, "Degree :", 575, 360, 11)
+        self.labels(canvas, 'National Number :', 605, 310, 11)
 
     def labels(self, Canvas, text, x, y, font_size):
         Canvas.create_text(x, y, text=text,
@@ -423,7 +421,7 @@ class doctor_drop_down:
             parent, textvariable=selected_DoctorDegree, width=20, height=5)
         self.DoctorDegree_cb['values'] = TypeList
         self.DoctorDegree_cb['state'] = 'readonly'
-        self.DoctorDegree_cb.place(x=408, y=340)
+        self.DoctorDegree_cb.place(x=680, y=350)
         self.DoctorDegree_cb.bind(
             '<<ComboboxSelected>>', self.DoctorDegree_changed)
 

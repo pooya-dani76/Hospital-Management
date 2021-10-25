@@ -254,12 +254,14 @@ class Medicine:
             tuple(str, bool): if Updating Data Encountered an Error(Error Message, False) 
         """
         try:
-            CheckMedicineInput(NumberOfSold)
-            self.Stock -= NumberOfSold
-            CheckMedicineInput(self.Stock)
-            UpdateMedicine(self.id, self.Name, self.Stock, self.Description)
+            CheckMedicineInput(Name=self.Name, Stock=NumberOfSold, Description=self.Description)
+            # self.Stock -= int(NumberOfSold)
+            CheckMedicineInput(Name=self.Name, Stock=self.Stock - int(NumberOfSold), Description=self.Description)
+            self.Stock -= int(NumberOfSold)
+            return True
+            # UpdateMedicine(self.id, self.Name, self.Stock, self.Description)
         except Exception as ErrorMessage:
-            return ErrorMessage, False
+            return ErrorMessage
 
     def Buy(self, NumberOfBought):
         """Sell ```NumberOfBought``` of This Medicine
@@ -272,11 +274,12 @@ class Medicine:
             tuple(str, bool): if Updating Data Encountered an Error(Error Message, False) 
         """
         try:
-            CheckMedicineInput(NumberOfBought)
-            self.Stock += NumberOfBought
-            UpdateMedicine(self.id, self.Name, self.Stock, self.Description)
+            CheckMedicineInput(Name=self.Name, Stock=NumberOfBought, Description=self.Description)
+            self.Stock += int(NumberOfBought)
+            # UpdateMedicine(self.id, self.Name, self.Stock, self.Description)
+            return True
         except Exception as ErrorMessage:
-            return ErrorMessage, False
+            return ErrorMessage
 
     def Update(self, Name, Stock, Description):
         """Update This Medicine Info With Given Info
@@ -290,14 +293,11 @@ class Medicine:
             bool: if Data Correctly Added to Sqlite Table
             tuple(str, bool): if Updating Data Encountered an Error(Error Message, False) 
         """
-        try:
-            CheckMedicineInput(Stock)
-            self.Name = Name
-            self.Stock = Stock
-            self.Description = Description
-            UpdateMedicine(self.id, Name, Stock, Description)
-        except Exception as ErrorMessage:
-            return ErrorMessage, False
+        
+        self.Name = Name
+        self.Stock = Stock
+        self.Description = Description
+        UpdateMedicine(self.id, Name, Stock, Description)
 
     def __str__(self) -> str:
         """Convert Medicine Class to Printable Object

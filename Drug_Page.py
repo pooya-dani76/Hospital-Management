@@ -1,4 +1,5 @@
 from tkinter import *
+from DataShape import Medicine
 from functions import *
 from DesignFunctions import *
 import tkinter.messagebox as err_massage
@@ -75,49 +76,30 @@ class drug_page(Frame):
             mainWindow.grab_set()
 
     def item_selected(self, controller, even):
-        print('fu.drug_list = ', fu.drug_list)
         global selected_indices
         selected_indices = self.listBox.curselection()
-        print('selected_indices = ', selected_indices)
-    #     # index = list(filter(lambda x: x.NationalNumber ==
-    #     #                     fu.patient_list[selected_indices[0]].VisitordrugNationalNumber, Loaddrugs()))[0]
-    #     # print('index ==== ', index)
-    #     # selected_langs = ",".join([self.listBox.get(i)
-    #     #                           for i in selected_indices])
-    #     # msg = f'You selected: {selected_langs}'
-    #     # print(type(fu.drug_list[selected_indices[0]]))
-    #     # print(selected_indices[0])
-    #     # print(fu.drug_list[selected_indices[0]].FirstName)
 
-    #     print('siiiiiiik = ', fu.drug_list[selected_indices[0]])
+        controller.show_frames('delete_and_update_drug')
 
-    # # def load_entries_for_delete_and_update_page(self, controller):
+        self.delete_entries_of_selected_drug(controller)
 
-    #     controller.show_frames('delete_and_update_drug')
+        controller.frames['delete_and_update_drug'].Entry_1.insert(
+            END, fu.drug_list[selected_indices[0]].Name)
+        controller.frames['delete_and_update_drug'].stock_textVariable.set(
+            str(fu.drug_list[selected_indices[0]].Stock)
+        )
+        controller.frames['delete_and_update_drug'].description_text.insert(
+            END, fu.drug_list[selected_indices[0]].Description)
 
-    #     self.delete_entries_of_selected_drug(controller)
-
-    #     controller.frames['delete_and_update_drug'].Entry_1.insert(
-    #         END, fu.drug_list[selected_indices[0]].FirstName)
-    #     controller.frames['delete_and_update_drug'].Entry_2.insert(
-    #         END, fu.drug_list[selected_indices[0]].LastName)
-    #     controller.frames['delete_and_update_drug'].Entry_3.insert(
-    #         END, fu.drug_list[selected_indices[0]].Age)
-    #     controller.frames['delete_and_update_drug'].Entry_4.set(
-    #         f'{fu.drug_list[selected_indices[0]].Type}'
-    #     )
-    #     controller.frames['delete_and_update_drug'].Entry_5.insert(
-    #         END, fu.drug_list[selected_indices[0]].NationalNumber)
-    #     # controller.frames['delete_and_update_drug'].sickness_text.insert(
-    #     #     END, fu.drug_list[selected_indices[0]].Sickness)
-
-    # def delete_entries_of_selected_drug(self, controller):
-    #     controller.frames['delete_and_update_drug'].Entry_1.delete(0, END)
-    #     controller.frames['delete_and_update_drug'].Entry_2.delete(0, END)
-    #     controller.frames['delete_and_update_drug'].Entry_3.delete(0, END)
-    #     controller.frames['delete_and_update_drug'].Entry_5.delete(0, END)
-    #     # controller.frames['delete_and_update_drug'].sickness_text.delete(
-    #     #     '1.0', END)
+    def delete_entries_of_selected_drug(self, controller):
+        controller.frames['delete_and_update_drug'].Entry_1.delete(0, END)
+        # controller.frames['delete_and_update_drug'].stock_textVariable.set(
+        #     str(fu.drug_list[selected_indices[0]].Stock))
+        # controller.frames['delete_and_update_drug'].Entry_2.delete(0, END)
+        # controller.frames['delete_and_update_drug'].Entry_3.delete(0, END)
+        # controller.frames['delete_and_update_drug'].Entry_5.delete(0, END)
+        controller.frames['delete_and_update_drug'].description_text.delete(
+            '1.0', END)
 
 
 class add_drug(Frame):
@@ -131,9 +113,6 @@ class add_drug(Frame):
         self.Entry_2 = self.Entries(20, 130, 250)
 
         self.description_text = self.scrollbar_for_text()
-        # self.Entry_3 = self.Entries(20, 410, 200)
-        # self.Entry_4 = drug_drop_down(self).drugDegree_cb
-        # self.Entry_5 = self.Entries(20, 410, 250)
 
         self.b1 = self.Buttons('Back to Drug Page', lambda: controller.show_frames(
             self.back_to_drug_page()), 20, 20, 500)
@@ -150,8 +129,6 @@ class add_drug(Frame):
         self.labels(canvas, 'Drag Name :', 80, 205, 11)
         self.labels(canvas, 'Stock :', 62, 255, 11)
         self.labels(canvas, 'Description :', 315, 205, 11)
-        # self.labels(canvas, "Degree :", 315, 205, 11)
-        # self.labels(canvas, 'National Number :', 345, 255, 11)
 
     def labels(self, Canvas, text, x, y, font_size):
         Canvas.create_text(x, y, text=text,
@@ -189,9 +166,6 @@ class add_drug(Frame):
         self.Entry_1.delete(0, END)
         self.Entry_2.delete(0, END)
         self.description_text.delete("1.0", END)
-        # self.Entry_3.delete(0, END)
-        # self.Entry_4.set('')
-        # self.Entry_5.delete(0, END)
 
     def Buttons(self, button_text, Command, Width, X, Y):
         Button(self, text=button_text, command=Command,
@@ -217,11 +191,15 @@ class delete_and_update_drug(Frame):
         self.windowTitle = 'Delete And Update'
         self.backGround_image_and_texts('images/13.gif')
 
-        self.Entry_1 = self.Entries(20, 130, 345)
-        self.Entry_2 = self.Entries(20, 130, 395)
-        self.Entry_3 = self.Entries(20, 130, 445)
-        self.Entry_4 = drug_drop_down(self).drugDegree_cb
-        self.Entry_5 = self.Entries(20, 410, 395)
+        self.Entry_1 = self.Entries(20, 130, 150)
+        self.buy_and_sell_entry = self.Entries(20, 130, 250)
+
+        self.description_text = self.scrollbar_for_text()
+
+        self.stock_textVariable = StringVar()
+        self.stock_label = Label(
+            self, textvariable=self.stock_textVariable, width=15)
+        self.stock_label.place(x=128, y=195)
 
         self.b1 = self.Buttons('Back to Drug Page', lambda: controller.show_frames(
             self.back_to_drug_page(controller)), 20, 20, 500)
@@ -229,6 +207,8 @@ class delete_and_update_drug(Frame):
             self.update_get_entries(controller)), 10, 800, 500)
         self.Buttons('Delete', lambda: controller.show_frames(
             self.delete_drug(controller)), 10, 700, 500)
+        self.Buttons('Sell', lambda: self.sell_stock(), 7, 130, 275)
+        self.Buttons('Buy', lambda: self.buy_stock(), 7, 195, 275)
 
     def backGround_image_and_texts(self, photo):
         self.backgrandImage = PhotoImage(file=photo)
@@ -237,11 +217,10 @@ class delete_and_update_drug(Frame):
         canvas.create_image(0, 0, image=self.backgrandImage, anchor="nw")
 
         self.labels(canvas, 'Drug Information', 450, 50, 24)
-        self.labels(canvas, 'First Name :', 80, 350, 11)
-        self.labels(canvas, 'Last Name :', 80, 400, 11)
-        self.labels(canvas, 'Age :', 55, 450, 11)
-        self.labels(canvas, "Degree :", 315, 350, 11)
-        self.labels(canvas, 'National Number :', 345, 400, 11)
+        self.labels(canvas, 'Drag Name :', 80, 155, 11)
+        self.labels(canvas, 'Stock :', 62, 205, 11)
+        self.labels(canvas, 'Description :', 315, 155, 11)
+        # canvas.create_text(135,207,text='4')
 
     def labels(self, Canvas, text, x, y, font_size):
         Canvas.create_text(x, y, text=text,
@@ -255,36 +234,28 @@ class delete_and_update_drug(Frame):
 
     def update_get_entries(self, controller):
         get_entry1 = self.Entry_1.get()
-        get_entry2 = self.Entry_2.get()
-        get_entry3 = self.Entry_3.get()
-        get_entry4 = self.show_drug_name_error()
-        if get_entry4 is not False:
-            get_entry5 = self.Entry_5.get()
+        get_entry2 = self.stock_textVariable.get()
+        get_entry3 = self.description_text.get("1.0", END)
 
-            try:
-                CheckHumanInput(get_entry5, get_entry1, get_entry2, get_entry3)
-                CheckMedicineInput(get_entry5, get_entry4)
-                show_confirm_massageBox = err_massage.askquestion(
-                    "Confirm", "Are you sure?")
-                if show_confirm_massageBox == 'yes':
-                    fu.drug_list[selected_indices[0]].Update(
-                        get_entry5, get_entry1, get_entry2, get_entry3, get_entry4)
-                    err_massage.showinfo(
-                        'Confirm', 'Update Information Successful')
-                    controller.frames['add_patient'].Entry_4['values'] = fu.update_drugs_to_dropDown(
-                    )
-                    controller.frames['delete_and_update_patient'].Entry_4['values'] = fu.update_drugs_to_dropDown(
-                    )
-                    controller.frames['drug_page'].update_show_listBox()
-                    self.delete_entries()
-                    return 'drug_page'
-                else:
-                    print('No')
-                    return 'delete_and_update_drug'
-            except Exception as ErrorMessage:
-                err_massage.showerror('Error', ErrorMessage)
+        try:
+            CheckMedicineInput(get_entry1, get_entry2, get_entry3)
+            if fu.drug_list[selected_indices[0]].Name != get_entry1:
+                CheckMedicineNameIsExists(get_entry1)
+            show_confirm_massageBox = err_massage.askquestion(
+                "Confirm", "Are you sure?")
+            if show_confirm_massageBox == 'yes':
+                fu.drug_list[selected_indices[0]].Update(
+                    get_entry1, get_entry2, get_entry3)
+                err_massage.showinfo(
+                    'Confirm', 'Update Information Successful')
+                controller.frames['drug_page'].update_show_listBox()
+                self.delete_entries()
+                return 'drug_page'
+            else:
+                print('No')
                 return 'delete_and_update_drug'
-        else:
+        except Exception as ErrorMessage:
+            err_massage.showerror('Error', ErrorMessage)
             return 'delete_and_update_drug'
 
     def delete_drug(self, controller):
@@ -301,20 +272,14 @@ class delete_and_update_drug(Frame):
             fu.drug_list[selected_indices[0]].Delete
             del fu.drug_list[selected_indices[0]]
             controller.frames['drug_page'].update_show_listBox()
-            controller.frames['add_patient'].Entry_4['values'] = fu.update_drugs_to_dropDown(
-            )
-            controller.frames['delete_and_update_patient'].Entry_4['values'] = fu.update_drugs_to_dropDown(
-            )
             return 'drug_page'
         else:
             return 'delete_and_update_drug'
 
     def delete_entries(self):
         self.Entry_1.delete(0, END)
-        self.Entry_2.delete(0, END)
-        self.Entry_3.delete(0, END)
-        self.Entry_4.set('')
-        self.Entry_5.delete(0, END)
+        self.stock_textVariable.set(fu.drug_list[selected_indices[0]].Stock)
+        self.description_text.delete("1.0", END)
 
     def Buttons(self, button_text, Command, Width, X, Y):
         Button(self, text=button_text, command=Command,
@@ -322,16 +287,36 @@ class delete_and_update_drug(Frame):
 
     def back_to_drug_page(self, controller):
         self.delete_entries()
+        fu.drug_list = LoadMedicines()
         return 'drug_page'
 
-    def show_drug_name_error(self):
-        try:
-            get_entry4 = self.Entry_4.get()
-            return get_entry4
-        except:
-            err_massage.showerror("Drug's Name Error",
-                                  'Please Select a Drug ')
-            return False
+    def scrollbar_for_text(self):
+        scrollbar = Scrollbar(self)
+        text = Text(self, height=4, width=40, yscrollcommand=scrollbar.set)
+        scrollbar.config(command=text.yview)
+        scrollbar.place(x=695, y=148, height=68)
+        text.place(x=365, y=148)
+        return text
+
+    def buy_stock(self):
+        buy_stock_return = fu.drug_list[selected_indices[0]].Buy(
+            self.buy_and_sell_entry.get())
+        if buy_stock_return is True:
+            self.stock_textVariable.set(
+                fu.drug_list[selected_indices[0]].Stock)
+            self.buy_and_sell_entry.delete(0, END)
+        else:
+            err_massage.showerror('Error', buy_stock_return)
+
+    def sell_stock(self):
+        sell_stock_return = fu.drug_list[selected_indices[0]].Sell(
+            self.buy_and_sell_entry.get())
+        if sell_stock_return is True:
+            self.stock_textVariable.set(
+                fu.drug_list[selected_indices[0]].Stock)
+            self.buy_and_sell_entry.delete(0, END)
+        else:
+            err_massage.showerror('Error', sell_stock_return)
 
 
 class search_drug(Toplevel):
@@ -392,21 +377,3 @@ class search_drug(Toplevel):
                 err_massage.showinfo('Confirm', 'Search Drug Successful')
                 controller.frames['drug_page'].show_listBox_for_search(
                     search_list)
-
-
-class drug_drop_down:
-    def __init__(self, parent):
-
-        selected_drugDegree = StringVar()
-
-        self.drugDegree_cb = ttk.Combobox(
-            parent, textvariable=selected_drugDegree, width=20, height=5)
-        self.drugDegree_cb['values'] = TypeList
-        self.drugDegree_cb['state'] = 'readonly'
-        self.drugDegree_cb.place(x=408, y=195)
-        self.drugDegree_cb.bind(
-            '<<ComboboxSelected>>', self.drugDegree_changed)
-
-    def drugDegree_changed(self, event):
-        msg = f'You selected {self.drugDegree_cb.get()}!'
-        showinfo(title='Result', message=msg)

@@ -10,7 +10,7 @@ def backGround_image_and_text(self, photo, text):
     canvas.create_image(0, 0, image=self.backgrandImage, anchor="nw")
     canvas.create_text(450, 50, text=text,
                        font=("Times New Roman", 24, BOLD), activefill='blue',
-                       disabledfill='red', fill='green')
+                       disabledfill='red', fill='red')
 
 
 def labels(Canvas, Text, x, y, font_size):

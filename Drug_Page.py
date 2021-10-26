@@ -6,6 +6,7 @@ import tkinter.messagebox as err_massage
 from tkinter import ttk
 from tkinter.messagebox import showinfo
 import functions as fu
+from Pages_Help import *
 
 
 class drug_page(Frame):
@@ -20,7 +21,7 @@ class drug_page(Frame):
                           lambda x: self.item_selected(even=None, controller=controller))
         self.update_show_listBox()
 
-        self.Buttons('Hospital Page', lambda: controller.show_frames(
+        self.Buttons('Back', lambda: controller.show_frames(
             'hospital_page'), 15, 20, 480)
         self.Buttons('Add Drug', lambda: controller.show_frames(
             'add_drug'), 12, 140, 480)
@@ -28,6 +29,15 @@ class drug_page(Frame):
                      lambda: self.open_search_window(controller), 18, 237, 480)
         self.Buttons('Show all Drugs',
                      lambda: self.update_show_listBox(), 49, 20, 510)
+        show_help_button = Button(self, text='Help', command=lambda: self.show_help(
+            parent, controller), width=3, height=0)
+        show_help_button.place(x=10, y=10)
+
+    def show_help(self, parent, controller):
+        A = pages_help(parent, controller, DrugPageHelp,
+                       'images/9.gif', 'drug_page', 100, 15, 110, 310, 10, 518, 10)
+        A.grid(row=0, column=0, sticky="nsew")
+        A.tkraise()
 
     def update_show_listBox(self):
         fu.drug_list = LoadMedicines()
@@ -114,10 +124,19 @@ class add_drug(Frame):
 
         self.description_text = self.scrollbar_for_text()
 
-        self.b1 = self.Buttons('Back to Drug Page', lambda: controller.show_frames(
+        self.b1 = self.Buttons('Back', lambda: controller.show_frames(
             self.back_to_drug_page()), 20, 20, 500)
         self.Buttons('Save', lambda: controller.show_frames(
             self.get_entries(controller)), 18, 750, 500)
+        show_help_button = Button(self,text='Help',command=lambda: self.show_help(
+            parent, controller),width=3,height=0)
+        show_help_button.place(x=10,y=10)
+
+    def show_help(self, parent, controller):
+        A = pages_help(parent, controller,AddDrugsHelp,
+                       'images/13.gif', 'add_drug', 90,16, 130, 295, 10, 518, 10)
+        A.grid(row=0, column=0, sticky="nsew")
+        A.tkraise()
 
     def backGround_image_and_texts(self, photo):
         self.backgrandImage = PhotoImage(file=photo)
@@ -201,7 +220,7 @@ class delete_and_update_drug(Frame):
             self, textvariable=self.stock_textVariable, width=15)
         self.stock_label.place(x=128, y=195)
 
-        self.b1 = self.Buttons('Back to Drug Page', lambda: controller.show_frames(
+        self.b1 = self.Buttons('Back', lambda: controller.show_frames(
             self.back_to_drug_page(controller)), 20, 20, 500)
         self.Buttons('Update', lambda: controller.show_frames(
             self.update_get_entries(controller)), 10, 800, 500)
@@ -209,6 +228,15 @@ class delete_and_update_drug(Frame):
             self.delete_drug(controller)), 10, 700, 500)
         self.Buttons('Sell', lambda: self.sell_stock(), 7, 130, 275)
         self.Buttons('Buy', lambda: self.buy_stock(), 7, 195, 275)
+        show_help_button = Button(self,text='Help',command=lambda: self.show_help(
+            parent, controller),width=3,height=0)
+        show_help_button.place(x=10,y=10)
+
+    def show_help(self, parent, controller):
+        A = pages_help(parent, controller,UpdateAndDeleteDrugsHelp,
+                       'images/13.gif', 'delete_and_update_drug', 90, 25, 130, 160, 10, 518, 10)
+        A.grid(row=0, column=0, sticky="nsew")
+        A.tkraise()
 
     def backGround_image_and_texts(self, photo):
         self.backgrandImage = PhotoImage(file=photo)

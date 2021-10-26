@@ -1,10 +1,12 @@
 from tkinter import *
+from typing import Type
 from functions import *
 from DesignFunctions import *
 import tkinter.messagebox as err_massage
 from tkinter import ttk
 from tkinter.messagebox import showinfo
 import functions as fu
+from Pages_Help import *
 
 
 class doctor_page(Frame):
@@ -19,7 +21,7 @@ class doctor_page(Frame):
                           lambda x: self.item_selected(even=None, controller=controller))
         self.update_show_listBox()
 
-        self.Buttons('Hospital Page', lambda: controller.show_frames(
+        self.Buttons('Back', lambda: controller.show_frames(
             'hospital_page'), 15, 20, 480)
         self.Buttons('Add Doctor', lambda: controller.show_frames(
             'add_doctor'), 12, 140, 480)
@@ -27,6 +29,15 @@ class doctor_page(Frame):
                      lambda: self.open_search_window(controller), 18, 237, 480)
         self.Buttons('Show all Doctors',
                      lambda: self.update_show_listBox(), 49, 20, 510)
+        show_help_button = Button(self,text='Help',command=lambda: self.show_help(
+            parent, controller),width=3,height=0)
+        show_help_button.place(x=10,y=10)
+
+    def show_help(self, parent, controller):
+        A = pages_help(parent, controller,DoctorPageHelp,
+                       'images/1.gif', 'doctor_page', 90, 15, 130, 310, 10, 518, 10)
+        A.grid(row=0, column=0, sticky="nsew")
+        A.tkraise()
 
     def update_show_listBox(self):
         fu.doctor_list = LoadDoctors()
@@ -123,7 +134,7 @@ class add_doctor(Frame):
         super().__init__(parent)
 
         self.windowTitle = 'Add Doctor'
-        self.backGround_image_and_texts('images/16.gif')
+        self.backGround_image_and_texts('images/15.gif')
 
         self.Entry_1 = self.Entries(20, 680, 150)
         self.Entry_2 = self.Entries(20, 680, 200)
@@ -131,10 +142,19 @@ class add_doctor(Frame):
         self.Entry_4 = doctor_drop_down(self).DoctorDegree_cb
         self.Entry_5 = self.Entries(20, 680, 300)
 
-        self.b1 = self.Buttons('Back to Doctor Page', lambda: controller.show_frames(
+        self.b1 = self.Buttons('Back', lambda: controller.show_frames(
             self.back_to_doctor_page()), 20, 20, 500)
         self.Buttons('Save', lambda: controller.show_frames(
             self.get_entries(controller)), 18, 750, 500)
+        show_help_button = Button(self,text='Help',command=lambda: self.show_help(
+            parent, controller),width=3,height=0)
+        show_help_button.place(x=10,y=10)
+
+    def show_help(self, parent, controller):
+        A = pages_help(parent, controller,AddDoctorsHelp,
+                       'images/15.gif', 'add_doctor', 90, 22, 130, 205, 10, 518, 10)
+        A.grid(row=0, column=0, sticky="nsew")
+        A.tkraise()
 
     def backGround_image_and_texts(self, photo):
         self.backgrandImage = PhotoImage(file=photo)
@@ -233,12 +253,21 @@ class delete_and_update_doctor(Frame):
         self.Entry_4 = doctor_drop_down(self).DoctorDegree_cb
         self.Entry_5 = self.Entries(20, 680, 300)
 
-        self.b1 = self.Buttons('Back to Doctor Page', lambda: controller.show_frames(
+        self.b1 = self.Buttons('Back', lambda: controller.show_frames(
             self.back_to_doctor_page(controller)), 20, 20, 500)
         self.Buttons('Update', lambda: controller.show_frames(
             self.update_get_entries(controller)), 10, 800, 500)
         self.Buttons('Delete', lambda: controller.show_frames(
             self.delete_doctor(controller)), 10, 700, 500)
+        show_help_button = Button(self,text='Help',command=lambda: self.show_help(
+            parent, controller),width=3,height=0)
+        show_help_button.place(x=10,y=10)
+
+    def show_help(self, parent, controller):
+        A = pages_help(parent, controller,UpdateAndDeleteDoctorsHelp,
+                       'images/15.gif', 'delete_and_update_doctor', 90, 30, 130, 85, 10, 518, 10)
+        A.grid(row=0, column=0, sticky="nsew")
+        A.tkraise()
 
     def backGround_image_and_texts(self, photo):
         self.backgrandImage = PhotoImage(file=photo)
@@ -355,10 +384,13 @@ class search_doctor(Toplevel):
         self.position()
 
         self.labels('Search by Firstname :', 5, 15)
-        self.labels('Search by Lastname :', 5, 60)
+        self.labels('Search by Lastname :', 5, 50)
+        self.labels('Search by Type :', 5, 85)
 
         self.entry1 = self.entries(25, 132, 15)
-        self.entry2 = self.entries(25, 132, 60)
+        self.entry2 = self.entries(25, 132, 50)
+        self.entry3 = doctor_drop_down(self).DoctorDegree_cb
+        self.entry3.place(x=132,y=85)
 
         self.button1 = self.buttons(
             'Done', 8, lambda: self.get_entries(controller), 230, 120)
@@ -392,9 +424,11 @@ class search_doctor(Toplevel):
     def get_entries(self, controller):
         get_Entry1 = self.entry1.get()
         get_Entry2 = self.entry2.get()
+        get_Entry3 = self.entry3.get()
         print('get_Entry1 = ', get_Entry1)
         print('get_Entry2 = ', get_Entry2)
-        search_list = FindDoctor(FirstName=get_Entry1, LastName=get_Entry2)
+        print('get_Entry3 = ', get_Entry3)
+        search_list = FindDoctor(FirstName=get_Entry1, LastName=get_Entry2,Type=get_Entry3)
         print('size = ', search_list)
         if len(search_list) == 0:
             self.destroy()
@@ -402,7 +436,7 @@ class search_doctor(Toplevel):
             controller.frames['doctor_page'].update_show_listBox()
 
         else:
-            if get_Entry1 == '' and get_Entry2 == '':
+            if get_Entry1 == '' and get_Entry2 == '' and get_Entry3 == '':
                 err_massage.showerror(
                     'Error', 'There is not any Entry for Search !!!\n\n Try Again ... ')
             else:

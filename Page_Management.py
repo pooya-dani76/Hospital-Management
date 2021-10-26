@@ -3,23 +3,25 @@ from Hospital_Page import *
 from Patient_Page import *
 from Doctor_Page import*
 from Drug_Page import *
+from Pages_Help import *
 
 
 class pages_management(Tk):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        main_Frame = Frame(self)
-        main_Frame.pack(side='top', fill='both', expand='True')
-        main_Frame.grid_rowconfigure(0, weight=1)
-        main_Frame.grid_columnconfigure(0, weight=1)
+        self.main_Frame = Frame(self)
+        self.main_Frame.pack(side='top', fill='both', expand='True')
+        self.main_Frame.grid_rowconfigure(0, weight=1)
+        self.main_Frame.grid_columnconfigure(0, weight=1)
 
         self.frames = {}
 
         for F in (hospital_page, patient_page, doctor_page,
                   drug_page, add_patient, delete_and_update_patient,
-                  add_doctor,delete_and_update_doctor,add_drug,delete_and_update_drug):
-            frame = F(main_Frame, self)
+                  add_doctor, delete_and_update_doctor, add_drug,
+                  delete_and_update_drug):
+            frame = F(self.main_Frame, self)
             self.frames[F.__name__] = frame
             frame.grid(row=0, column=0, sticky="nsew")
 

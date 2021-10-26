@@ -5,6 +5,7 @@ import tkinter.messagebox as err_massage
 from tkinter import ttk
 from tkinter.messagebox import showinfo
 import functions as fu
+from Pages_Help import *
 
 
 class patient_page(Frame):
@@ -20,7 +21,7 @@ class patient_page(Frame):
                           lambda x: self.item_selected(even=None, controller=controller))
         self.update_show_listBox()
 
-        self.Buttons('Hospital Page', lambda: controller.show_frames(
+        self.Buttons('Back', lambda: controller.show_frames(
             'hospital_page'), 15, 20, 480)
         self.Buttons('Add Patient', lambda: controller.show_frames(
             'add_patient'), 12, 140, 480)
@@ -28,6 +29,15 @@ class patient_page(Frame):
                      lambda: self.open_search_window(controller), 18, 237, 480)
         self.Buttons('Show All Patients',
                      lambda: self.update_show_listBox(), 49, 20, 510)
+        show_help_button = Button(self,text='Help',command=lambda: self.show_help(
+            parent, controller),width=3,height=0)
+        show_help_button.place(x=860,y=518)
+
+    def show_help(self, parent, controller):
+        A = pages_help(parent, controller, PatientPageHelp,
+                       'images/5.gif', 'patient_page', 90, 15, 130, 310, 10, 518, 10)
+        A.grid(row=0, column=0, sticky="nsew")
+        A.tkraise()
 
     def update_show_listBox(self):
         fu.patient_list = LoadPatients()
@@ -137,10 +147,20 @@ class add_patient(Frame):
 
         self.sickness_text = self.scrollbar_for_text()
 
-        self.b1 = self.Buttons('Back to Patient Page', lambda: controller.show_frames(
+        self.b1 = self.Buttons('Back', lambda: controller.show_frames(
             self.back_to_patient_page()), 20, 20, 500)
         self.Buttons('Save', lambda: controller.show_frames(
             self.get_entries(controller)), 18, 750, 500)
+
+        show_help_button = Button(self,text='Help',command=lambda: self.show_help(
+            parent, controller),width=3,height=0)
+        show_help_button.place(x=10,y=10)
+
+    def show_help(self, parent, controller):
+        A = pages_help(parent, controller, AddPatientsHelp,
+                       'images/7.gif', 'add_patient', 90, 25, 130, 160, 10, 518, 10)
+        A.grid(row=0, column=0, sticky="nsew")
+        A.tkraise()
 
     def backGround_image_and_texts(self, photo):
         self.backgrandImage = PhotoImage(file=photo)
@@ -269,12 +289,22 @@ class delete_and_update_patient(Frame):
 
         self.sickness_text = self.scrollbar_for_text()
 
-        self.b1 = self.Buttons('Back to Patient Page', lambda: controller.show_frames(
+        self.b1 = self.Buttons('Back', lambda: controller.show_frames(
             self.back_to_patient_page(controller)), 20, 20, 500)
         self.Buttons('Update', lambda: controller.show_frames(
             self.update_get_entries(controller)), 10, 800, 500)
         self.Buttons('Delete', lambda: controller.show_frames(
             self.delete_patient(controller)), 10, 700, 500)
+
+        show_help_button = Button(self,text='Help',command=lambda: self.show_help(
+            parent, controller),width=3,height=0)
+        show_help_button.place(x=10,y=10)
+
+    def show_help(self, parent, controller):
+        A = pages_help(parent, controller, UpdateAndDeletePatientsHelp,
+                       'images/7.gif', 'delete_and_update_patient', 90, 30, 130, 85, 10, 518, 10)
+        A.grid(row=0, column=0, sticky="nsew")
+        A.tkraise()
 
     def backGround_image_and_texts(self, photo):
         self.backgrandImage = PhotoImage(file=photo)

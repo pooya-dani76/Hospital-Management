@@ -181,6 +181,9 @@ def CheckMedicineInput(Name: str, Stock: str, Description: str) -> None:
     if Name == "":
         raise TypeError("Drug Name Cannot Be Empty!")
 
+    if len(Name) > 30:
+        raise TypeError("Drug Name is too Long!")   
+
     if  all(list(map(lambda x: ord(x) == 10 or ord(x) == 32, Description))):
         raise TypeError('Description Cannot be Empty!')
 

@@ -189,7 +189,7 @@ class add_doctor(Frame):
 
             try:
                 CheckHumanInput(get_entry5, get_entry1, get_entry2, get_entry3)
-                CheckDoctorInput(get_entry5, get_entry4)
+                CheckDoctorInput(get_entry4)
                 CheckDoctorNationalNumberIsExists(get_entry5)
                 show_confirm_massageBox = err_massage.askquestion(
                     "Confirm", "Are you sure?")
@@ -302,7 +302,7 @@ class delete_and_update_doctor(Frame):
 
             try:
                 CheckHumanInput(get_entry5, get_entry1, get_entry2, get_entry3)
-                CheckDoctorInput(get_entry5, get_entry4)
+                CheckDoctorInput(get_entry4)
                 if fu.doctor_list[selected_indices[0]].NationalNumber != get_entry5:
                     CheckDoctorNationalNumberIsExists(get_entry5)
                 show_confirm_massageBox = err_massage.askquestion(

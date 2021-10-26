@@ -24,11 +24,13 @@ class hospital_page(Frame):
                            lambda: controller.show_frames(self.go_to_drug_page(controller)))
         self.create_button('Exit', 340, 500,
                            lambda: controller.destroy())
-        self.create_button('Help', 7, 518, lambda: self.show_help(
-            parent, controller), Width=3,Height=0)
+
+        self.create_button('Help', 10, 10, lambda: self.show_help(
+            parent, controller), Width=3, Height=0)
 
     def show_help(self, parent, controller):
-        A = pages_help(parent, controller,HospitalPageHelp,'images/8.gif','hospital_page',90,15,130,310,10,518,10)
+        A = pages_help(parent, controller, HospitalPageHelp,
+                       'images/8.gif', 'hospital_page', 90, 15, 130, 310, 10, 518, 10)
         A.grid(row=0, column=0, sticky="nsew")
         A.tkraise()
 

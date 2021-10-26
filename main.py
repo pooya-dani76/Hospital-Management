@@ -6,7 +6,7 @@ from Drug_Page import *
 from Pages_Help import *
 
 
-class pages_management(Tk):
+class main(Tk):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -26,10 +26,6 @@ class pages_management(Tk):
             frame.grid(row=0, column=0, sticky="nsew")
 
         self.show_frames(hospital_page.__name__)
-
-        # print(self.frames[hospital_page].windowTitle)
-        # print(hospital_page.__name__)
-
         self.position()
 
     def show_frames(self, frame_name):
@@ -51,5 +47,5 @@ class pages_management(Tk):
         self.resizable(width=False, height=False)
 
 
-my_application = pages_management()
+my_application = main()
 my_application.mainloop()

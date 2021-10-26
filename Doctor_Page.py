@@ -1,5 +1,4 @@
 from tkinter import *
-from typing import Type
 from functions import *
 from DesignFunctions import *
 import tkinter.messagebox as err_massage
@@ -29,12 +28,12 @@ class doctor_page(Frame):
                      lambda: self.open_search_window(controller), 18, 237, 480)
         self.Buttons('Show all Doctors',
                      lambda: self.update_show_listBox(), 49, 20, 510)
-        show_help_button = Button(self,text='Help',command=lambda: self.show_help(
-            parent, controller),width=3,height=0)
-        show_help_button.place(x=10,y=10)
+        show_help_button = Button(self, text='Help', command=lambda: self.show_help(
+            parent, controller), width=3, height=0)
+        show_help_button.place(x=10, y=10)
 
     def show_help(self, parent, controller):
-        A = pages_help(parent, controller,DoctorPageHelp,
+        A = pages_help(parent, controller, DoctorPageHelp,
                        'images/1.gif', 'doctor_page', 90, 15, 130, 310, 10, 518, 10)
         A.grid(row=0, column=0, sticky="nsew")
         A.tkraise()
@@ -86,22 +85,8 @@ class doctor_page(Frame):
             mainWindow.grab_set()
 
     def item_selected(self, controller, even):
-        print('fu.doctor_list = ', fu.doctor_list)
         global selected_indices
         selected_indices = self.listBox.curselection()
-        print('selected_indices = ', selected_indices)
-        # index = list(filter(lambda x: x.NationalNumber ==
-        #                     fu.patient_list[selected_indices[0]].VisitorDoctorNationalNumber, LoadDoctors()))[0]
-        # print('index ==== ', index)
-        # selected_langs = ",".join([self.listBox.get(i)
-        #                           for i in selected_indices])
-        # msg = f'You selected: {selected_langs}'
-        # print(type(fu.doctor_list[selected_indices[0]]))
-        # print(selected_indices[0])
-        # print(fu.doctor_list[selected_indices[0]].FirstName)
-
-    # def load_entries_for_delete_and_update_page(self, controller):
-
         controller.show_frames('delete_and_update_doctor')
 
         self.delete_entries_of_selected_doctor(controller)
@@ -117,16 +102,12 @@ class doctor_page(Frame):
         )
         controller.frames['delete_and_update_doctor'].Entry_5.insert(
             END, fu.doctor_list[selected_indices[0]].NationalNumber)
-        # controller.frames['delete_and_update_doctor'].sickness_text.insert(
-        #     END, fu.doctor_list[selected_indices[0]].Sickness)
 
     def delete_entries_of_selected_doctor(self, controller):
         controller.frames['delete_and_update_doctor'].Entry_1.delete(0, END)
         controller.frames['delete_and_update_doctor'].Entry_2.delete(0, END)
         controller.frames['delete_and_update_doctor'].Entry_3.delete(0, END)
         controller.frames['delete_and_update_doctor'].Entry_5.delete(0, END)
-        # controller.frames['delete_and_update_doctor'].sickness_text.delete(
-        #     '1.0', END)
 
 
 class add_doctor(Frame):
@@ -146,12 +127,12 @@ class add_doctor(Frame):
             self.back_to_doctor_page()), 20, 20, 500)
         self.Buttons('Save', lambda: controller.show_frames(
             self.get_entries(controller)), 18, 750, 500)
-        show_help_button = Button(self,text='Help',command=lambda: self.show_help(
-            parent, controller),width=3,height=0)
-        show_help_button.place(x=10,y=10)
+        show_help_button = Button(self, text='Help', command=lambda: self.show_help(
+            parent, controller), width=3, height=0)
+        show_help_button.place(x=10, y=10)
 
     def show_help(self, parent, controller):
-        A = pages_help(parent, controller,AddDoctorsHelp,
+        A = pages_help(parent, controller, AddDoctorsHelp,
                        'images/15.gif', 'add_doctor', 90, 22, 130, 205, 10, 518, 10)
         A.grid(row=0, column=0, sticky="nsew")
         A.tkraise()
@@ -166,7 +147,7 @@ class add_doctor(Frame):
         self.labels(canvas, 'First Name :', 585, 160, 11)
         self.labels(canvas, 'Last Name :', 585, 210, 11)
         self.labels(canvas, 'Age :', 565, 260, 11)
-        self.labels(canvas, "Degree :", 575, 360, 11)
+        self.labels(canvas, "Type :", 567, 360, 11)
         self.labels(canvas, 'National Number :', 605, 310, 11)
 
     def labels(self, Canvas, text, x, y, font_size):
@@ -198,7 +179,6 @@ class add_doctor(Frame):
                                  get_entry2, get_entry3, get_entry4)
                     err_massage.showinfo(
                         'Confirm', 'Save Information Successful')
-                    print(fu.update_doctors_to_dropDown())
                     controller.frames['add_patient'].Entry_4['values'] = fu.update_doctors_to_dropDown(
                     )
                     controller.frames['delete_and_update_patient'].Entry_4['values'] = fu.update_doctors_to_dropDown(
@@ -207,7 +187,6 @@ class add_doctor(Frame):
                     self.delete_entries()
                     return 'doctor_page'
                 else:
-                    print('No')
                     return 'add_doctor'
             except Exception as ErrorMessage:
                 err_massage.showerror('Error', ErrorMessage)
@@ -259,12 +238,12 @@ class delete_and_update_doctor(Frame):
             self.update_get_entries(controller)), 10, 800, 500)
         self.Buttons('Delete', lambda: controller.show_frames(
             self.delete_doctor(controller)), 10, 700, 500)
-        show_help_button = Button(self,text='Help',command=lambda: self.show_help(
-            parent, controller),width=3,height=0)
-        show_help_button.place(x=10,y=10)
+        show_help_button = Button(self, text='Help', command=lambda: self.show_help(
+            parent, controller), width=3, height=0)
+        show_help_button.place(x=10, y=10)
 
     def show_help(self, parent, controller):
-        A = pages_help(parent, controller,UpdateAndDeleteDoctorsHelp,
+        A = pages_help(parent, controller, UpdateAndDeleteDoctorsHelp,
                        'images/15.gif', 'delete_and_update_doctor', 90, 30, 130, 85, 10, 518, 10)
         A.grid(row=0, column=0, sticky="nsew")
         A.tkraise()
@@ -279,7 +258,7 @@ class delete_and_update_doctor(Frame):
         self.labels(canvas, 'First Name :', 585, 160, 11)
         self.labels(canvas, 'Last Name :', 585, 210, 11)
         self.labels(canvas, 'Age :', 565, 260, 11)
-        self.labels(canvas, "Degree :", 575, 360, 11)
+        self.labels(canvas, "Type :", 567, 360, 11)
         self.labels(canvas, 'National Number :', 605, 310, 11)
 
     def labels(self, Canvas, text, x, y, font_size):
@@ -321,7 +300,6 @@ class delete_and_update_doctor(Frame):
                     self.delete_entries()
                     return 'doctor_page'
                 else:
-                    print('No')
                     return 'delete_and_update_doctor'
             except Exception as ErrorMessage:
                 err_massage.showerror('Error', ErrorMessage)
@@ -330,27 +308,43 @@ class delete_and_update_doctor(Frame):
             return 'delete_and_update_doctor'
 
     def delete_doctor(self, controller):
-        # print('hello')
-        # print(self.Entry_1.get())
-        # print(type(selected_indices[0]))
-        # print(fu.doctor_list[selected_indices[0]])
-        # Deletedoctor(national)
-        show_confirm_massageBox = err_massage.askquestion(
-            "Confirm", "Are you sure?")
-        if show_confirm_massageBox == 'yes':
-            err_massage.showinfo(
-                'Confirm', 'Delete Doctor Successful')
-            fu.doctor_list[selected_indices[0]].Delete
-            del fu.doctor_list[selected_indices[0]]
-            controller.frames['doctor_page'].update_show_listBox()
-            controller.frames['patient_page'].update_show_listBox()
-            controller.frames['add_patient'].Entry_4['values'] = fu.update_doctors_to_dropDown(
-            )
-            controller.frames['delete_and_update_patient'].Entry_4['values'] = fu.update_doctors_to_dropDown(
-            )
-            return 'doctor_page'
+        number_of_patient = len(SearchPatient(
+            VisitorDoctorNationalNumber=fu.doctor_list[selected_indices[0]].NationalNumber))
+        if number_of_patient == 0:
+            show_confirm_massageBox = err_massage.askquestion(
+                "Confirm", "are you sure?")
+            if show_confirm_massageBox == 'yes':
+                err_massage.showinfo(
+                    'Confirm', 'Delete Doctor Successful')
+                fu.doctor_list[selected_indices[0]].Delete
+                del fu.doctor_list[selected_indices[0]]
+                controller.frames['doctor_page'].update_show_listBox()
+                controller.frames['patient_page'].update_show_listBox()
+                controller.frames['add_patient'].Entry_4['values'] = fu.update_doctors_to_dropDown(
+                )
+                controller.frames['delete_and_update_patient'].Entry_4['values'] = fu.update_doctors_to_dropDown(
+                )
+                return 'doctor_page'
+            else:
+                return 'delete_and_update_doctor'
         else:
-            return 'delete_and_update_doctor'
+            show_confirm_massageBox = err_massage.askquestion(
+                "Confirm", f"This Doctor is Visitor of {number_of_patient} Patient(s).\
+                \nThese Patient May be Deleted !!!\nAre you Sure to Continue?")
+            if show_confirm_massageBox == 'yes':
+                err_massage.showinfo(
+                    'Confirm', 'Delete Doctor Successful')
+                fu.doctor_list[selected_indices[0]].Delete
+                del fu.doctor_list[selected_indices[0]]
+                controller.frames['doctor_page'].update_show_listBox()
+                controller.frames['patient_page'].update_show_listBox()
+                controller.frames['add_patient'].Entry_4['values'] = fu.update_doctors_to_dropDown(
+                )
+                controller.frames['delete_and_update_patient'].Entry_4['values'] = fu.update_doctors_to_dropDown(
+                )
+                return 'doctor_page'
+            else:
+                return 'delete_and_update_doctor'
 
     def delete_entries(self):
         self.Entry_1.delete(0, END)
@@ -390,7 +384,7 @@ class search_doctor(Toplevel):
         self.entry1 = self.entries(25, 132, 15)
         self.entry2 = self.entries(25, 132, 50)
         self.entry3 = doctor_drop_down(self).DoctorDegree_cb
-        self.entry3.place(x=132,y=85)
+        self.entry3.place(x=132, y=85)
 
         self.button1 = self.buttons(
             'Done', 8, lambda: self.get_entries(controller), 230, 120)
@@ -404,7 +398,7 @@ class search_doctor(Toplevel):
         hs = self.winfo_screenheight()
         x = (ws/2) - (w/8)
         y = (hs/50*28) - (h/2)
-        self.title('Search')
+        self.title('Search Doctor')
         self.geometry('%dx%d+%d+%d' % (w, h, x, y))
         self.resizable(width=False, height=False)
 
@@ -425,11 +419,8 @@ class search_doctor(Toplevel):
         get_Entry1 = self.entry1.get()
         get_Entry2 = self.entry2.get()
         get_Entry3 = self.entry3.get()
-        print('get_Entry1 = ', get_Entry1)
-        print('get_Entry2 = ', get_Entry2)
-        print('get_Entry3 = ', get_Entry3)
-        search_list = FindDoctor(FirstName=get_Entry1, LastName=get_Entry2,Type=get_Entry3)
-        print('size = ', search_list)
+        search_list = FindDoctor(FirstName=get_Entry1,
+                                 LastName=get_Entry2, Type=get_Entry3)
         if len(search_list) == 0:
             self.destroy()
             err_massage.showerror('Error', 'Not Found Any Doctor !!!')

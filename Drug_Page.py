@@ -1,10 +1,7 @@
 from tkinter import *
-from DataShape import Medicine
 from functions import *
 from DesignFunctions import *
 import tkinter.messagebox as err_massage
-from tkinter import ttk
-from tkinter.messagebox import showinfo
 import functions as fu
 from Pages_Help import *
 
@@ -35,7 +32,7 @@ class drug_page(Frame):
 
     def show_help(self, parent, controller):
         A = pages_help(parent, controller, DrugPageHelp,
-                       'images/9.gif', 'drug_page', 100, 15, 110, 310, 10, 518, 10)
+                       'images/9.gif', 'drug_page', 100, 17, 110, 280, 10, 518, 10)
         A.grid(row=0, column=0, sticky="nsew")
         A.tkraise()
 
@@ -103,11 +100,6 @@ class drug_page(Frame):
 
     def delete_entries_of_selected_drug(self, controller):
         controller.frames['delete_and_update_drug'].Entry_1.delete(0, END)
-        # controller.frames['delete_and_update_drug'].stock_textVariable.set(
-        #     str(fu.drug_list[selected_indices[0]].Stock))
-        # controller.frames['delete_and_update_drug'].Entry_2.delete(0, END)
-        # controller.frames['delete_and_update_drug'].Entry_3.delete(0, END)
-        # controller.frames['delete_and_update_drug'].Entry_5.delete(0, END)
         controller.frames['delete_and_update_drug'].description_text.delete(
             '1.0', END)
 
@@ -128,13 +120,13 @@ class add_drug(Frame):
             self.back_to_drug_page()), 20, 20, 500)
         self.Buttons('Save', lambda: controller.show_frames(
             self.get_entries(controller)), 18, 750, 500)
-        show_help_button = Button(self,text='Help',command=lambda: self.show_help(
-            parent, controller),width=3,height=0)
-        show_help_button.place(x=10,y=10)
+        show_help_button = Button(self, text='Help', command=lambda: self.show_help(
+            parent, controller), width=3, height=0)
+        show_help_button.place(x=10, y=10)
 
     def show_help(self, parent, controller):
-        A = pages_help(parent, controller,AddDrugsHelp,
-                       'images/13.gif', 'add_drug', 90,16, 130, 295, 10, 518, 10)
+        A = pages_help(parent, controller, AddDrugsHelp,
+                       'images/13.gif', 'add_drug', 90, 16, 130, 100, 10, 518, 10)
         A.grid(row=0, column=0, sticky="nsew")
         A.tkraise()
 
@@ -175,7 +167,6 @@ class add_drug(Frame):
                 self.delete_entries()
                 return 'drug_page'
             else:
-                print('No')
                 return 'add_drug'
         except Exception as ErrorMessage:
             err_massage.showerror('Error', ErrorMessage)
@@ -221,20 +212,20 @@ class delete_and_update_drug(Frame):
         self.stock_label.place(x=128, y=195)
 
         self.b1 = self.Buttons('Back', lambda: controller.show_frames(
-            self.back_to_drug_page(controller)), 20, 20, 500)
+            self.back_to_drug_page()), 20, 20, 500)
         self.Buttons('Update', lambda: controller.show_frames(
             self.update_get_entries(controller)), 10, 800, 500)
         self.Buttons('Delete', lambda: controller.show_frames(
             self.delete_drug(controller)), 10, 700, 500)
         self.Buttons('Sell', lambda: self.sell_stock(), 7, 130, 275)
         self.Buttons('Buy', lambda: self.buy_stock(), 7, 195, 275)
-        show_help_button = Button(self,text='Help',command=lambda: self.show_help(
-            parent, controller),width=3,height=0)
-        show_help_button.place(x=10,y=10)
+        show_help_button = Button(self, text='Help', command=lambda: self.show_help(
+            parent, controller), width=3, height=0)
+        show_help_button.place(x=10, y=10)
 
     def show_help(self, parent, controller):
-        A = pages_help(parent, controller,UpdateAndDeleteDrugsHelp,
-                       'images/13.gif', 'delete_and_update_drug', 90, 25, 130, 160, 10, 518, 10)
+        A = pages_help(parent, controller, UpdateAndDeleteDrugsHelp,
+                       'images/13.gif', 'delete_and_update_drug', 90, 25, 130, 100, 10, 518, 10)
         A.grid(row=0, column=0, sticky="nsew")
         A.tkraise()
 
@@ -248,7 +239,6 @@ class delete_and_update_drug(Frame):
         self.labels(canvas, 'Drag Name :', 80, 155, 11)
         self.labels(canvas, 'Stock :', 62, 205, 11)
         self.labels(canvas, 'Description :', 315, 155, 11)
-        # canvas.create_text(135,207,text='4')
 
     def labels(self, Canvas, text, x, y, font_size):
         Canvas.create_text(x, y, text=text,
@@ -280,18 +270,12 @@ class delete_and_update_drug(Frame):
                 self.delete_entries()
                 return 'drug_page'
             else:
-                print('No')
                 return 'delete_and_update_drug'
         except Exception as ErrorMessage:
             err_massage.showerror('Error', ErrorMessage)
             return 'delete_and_update_drug'
 
     def delete_drug(self, controller):
-        # print('hello')
-        # print(self.Entry_1.get())
-        # print(type(selected_indices[0]))
-        # print(fu.drug_list[selected_indices[0]])
-        # Deletedrug(national)
         show_confirm_massageBox = err_massage.askquestion(
             "Confirm", "Are you sure?")
         if show_confirm_massageBox == 'yes':
@@ -313,7 +297,7 @@ class delete_and_update_drug(Frame):
         Button(self, text=button_text, command=Command,
                width=Width).place(x=X, y=Y)
 
-    def back_to_drug_page(self, controller):
+    def back_to_drug_page(self):
         self.delete_entries()
         fu.drug_list = LoadMedicines()
         return 'drug_page'
@@ -369,7 +353,7 @@ class search_drug(Toplevel):
         hs = self.winfo_screenheight()
         x = (ws/2) - (w/8)
         y = (hs/50*28) - (h/2)
-        self.title('Search')
+        self.title('Search Drug')
         self.geometry('%dx%d+%d+%d' % (w, h, x, y))
         self.resizable(width=False, height=False)
 
@@ -388,9 +372,7 @@ class search_drug(Toplevel):
 
     def get_entries(self, controller):
         get_Entry1 = self.entry1.get()
-        print('get_Entry1 = ', get_Entry1)
         search_list = FindMedicine(Name=get_Entry1)
-        print('size = ', search_list)
         if len(search_list) == 0:
             self.destroy()
             err_massage.showerror('Error', 'Not Found Any Drug !!!')

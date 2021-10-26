@@ -68,7 +68,6 @@ class Doctor(Human):
         Doctors = list(filter(lambda x: x[5] == self.Type, AllDoctors()))
         if len(Doctors) > 0:
             for DoctorPatient in list(filter(lambda x: x[6] == self.NationalNumber, AllPatients())):
-                print('Hi2')
                 PatientTemp = Patient(id=DoctorPatient[0], NationalNumber=DoctorPatient[1], FirstName=DoctorPatient[2],
                                       LastName=DoctorPatient[3], Sickness=DoctorPatient[4],
                                       Age=DoctorPatient[5], VisitorDoctorNationalNumber=DoctorPatient[6])

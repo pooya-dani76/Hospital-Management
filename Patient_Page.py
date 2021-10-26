@@ -31,11 +31,11 @@ class patient_page(Frame):
                      lambda: self.update_show_listBox(), 49, 20, 510)
         show_help_button = Button(self,text='Help',command=lambda: self.show_help(
             parent, controller),width=3,height=0)
-        show_help_button.place(x=860,y=518)
+        show_help_button.place(x=10,y=10)
 
     def show_help(self, parent, controller):
         A = pages_help(parent, controller, PatientPageHelp,
-                       'images/5.gif', 'patient_page', 90, 15, 130, 310, 10, 518, 10)
+                       'images/5.gif', 'patient_page', 90, 16, 130, 295, 10, 518, 10)
         A.grid(row=0, column=0, sticky="nsew")
         A.tkraise()
 
@@ -86,24 +86,10 @@ class patient_page(Frame):
             mainWindow.grab_set()
 
     def item_selected(self, controller, even):
-        # fu.patient_list = LoadPatients()
-        # self.update_show_listBox()
-        print('fu.patient_list = ', fu.patient_list)
         global selected_indices
         selected_indices = self.listBox.curselection()
-        print('selected_indices = ', selected_indices)
         index = list(filter(lambda x: x.NationalNumber ==
                             fu.patient_list[selected_indices[0]].VisitorDoctorNationalNumber, LoadDoctors()))[0]
-        print('index = ', index)
-        # selected_langs = ",".join([self.listBox.get(i)
-        #                           for i in selected_indices])
-        # msg = f'You selected: {selected_langs}'
-        # print(type(fu.patient_list[selected_indices[0]]))
-        # print(selected_indices[0])
-        # print(fu.patient_list[selected_indices[0]].FirstName)
-
-    # def load_entries_for_delete_and_update_page(self, controller):
-
         controller.show_frames('delete_and_update_patient')
 
         self.delete_entries_of_selected_patient(controller)
@@ -115,7 +101,6 @@ class patient_page(Frame):
         controller.frames['delete_and_update_patient'].Entry_3.insert(
             END, fu.patient_list[selected_indices[0]].Age)
         controller.frames['delete_and_update_patient'].Entry_4.set(
-            # fu.patient_list[selected_indices[0]].VisitorDoctorNationalNumber
             f'{index.id}. Dr.{index.FirstName} {index.LastName}'
         )
         controller.frames['delete_and_update_patient'].Entry_5.insert(
@@ -187,7 +172,6 @@ class add_patient(Frame):
         return entry
 
     def get_entries(self, controller):
-        confirm_for_save = False
         get_entry1 = self.Entry_1.get()
         get_entry2 = self.Entry_2.get()
         get_entry3 = self.Entry_3.get()
@@ -211,25 +195,12 @@ class add_patient(Frame):
                     self.delete_entries()
                     return 'patient_page'
                 else:
-                    print('No')
                     return 'add_patient'
             except Exception as ErrorMessage:
                 err_massage.showerror('Error', ErrorMessage)
                 return 'add_patient'
         else:
             return 'add_patient'
-
-        #     massege_error = ReceptionPatient(FirstName=get_entry1, LastName=get_entry2, Age=get_entry3,
-        #                                      VisitorDoctorNationalNumber=get_entry4, NationalNumber=get_entry5,
-        #                                      Sickness=get_entry6)
-
-        #     confirm_for_save = self.show_errors(massege_error)
-        # if confirm_for_save is True:
-        #     controller.frames['patient_page'].update_show_listBox()
-        #     self.delete_entries()
-        #     return 'patient_page'
-        # else:
-        #     return 'add_patient'
 
     def delete_entries(self):
         self.Entry_1.delete(0, END)
@@ -290,7 +261,7 @@ class delete_and_update_patient(Frame):
         self.sickness_text = self.scrollbar_for_text()
 
         self.b1 = self.Buttons('Back', lambda: controller.show_frames(
-            self.back_to_patient_page(controller)), 20, 20, 500)
+            self.back_to_patient_page()), 20, 20, 500)
         self.Buttons('Update', lambda: controller.show_frames(
             self.update_get_entries(controller)), 10, 800, 500)
         self.Buttons('Delete', lambda: controller.show_frames(
@@ -355,7 +326,6 @@ class delete_and_update_patient(Frame):
                     self.delete_entries()
                     return 'patient_page'
                 else:
-                    print('No')
                     return 'delete_and_update_patient'
             except Exception as ErrorMessage:
                 err_massage.showerror('Error', ErrorMessage)
@@ -363,32 +333,7 @@ class delete_and_update_patient(Frame):
         else:
             return 'delete_and_update_patient'
 
-        # print(f' a = {fu.patient_list[selected_indices[0]].FirstName}')
-        # confirm_for_save = False
-        # get_entry1 = self.Entry_1.get()
-        # get_entry2 = self.Entry_2.get()
-        # get_entry3 = self.Entry_3.get()
-        # get_entry4 = self.show_doctor_name_error()
-
-        # if get_entry4 is not False:
-        #     get_entry5 = self.Entry_5.get()
-        #     get_entry6 = self.sickness_text.get("1.0", END)
-        #     massege_error = fu.patient_list[selected_indices[0]].Update(
-        #         get_entry5, get_entry1, get_entry2, get_entry6, get_entry3, get_entry4)
-
-        #     confirm_for_save = self.show_errors(massege_error)
-        # if confirm_for_save is True:
-        #     controller.frames['patient_page'].update_show_listBox()
-        #     return 'patient_page'
-        # else:
-        #     return 'delete_and_update_patient'
-
     def delete_patient(self, controller):
-        # print('hello')
-        # print(self.Entry_1.get())
-        # print(type(selected_indices[0]))
-        # print(fu.patient_list[selected_indices[0]])
-        # DeletePatient(national)
         show_confirm_massageBox = err_massage.askquestion(
             "Confirm", "Are you sure?")
         if show_confirm_massageBox == 'yes':
@@ -429,16 +374,7 @@ class delete_and_update_patient(Frame):
             err_massage.showinfo('Confirm', 'Update Information Successful')
             return True
 
-    def back_to_patient_page(self, controller):
-        # print('hello')
-        # print(self.Entry_1.get())
-        # print(type(selected_indices[0]))
-        # print(fu.patient_list[selected_indices[0]])
-        # # DeletePatient(national)
-        # fu.patient_list[selected_indices[0]].Delete
-        # del fu.patient_list[selected_indices[0]]
-        # controller.frames['patient_page'].update_show_listBox()
-
+    def back_to_patient_page(self):
         self.delete_entries()
         return 'patient_page'
 
@@ -477,7 +413,7 @@ class search_patient(Toplevel):
         hs = self.winfo_screenheight()
         x = (ws/2) - (w/8)
         y = (hs/50*28) - (h/2)
-        self.title('Search')
+        self.title('Search Patient')
         self.geometry('%dx%d+%d+%d' % (w, h, x, y))
         self.resizable(width=False, height=False)
 
@@ -497,8 +433,6 @@ class search_patient(Toplevel):
     def get_entries(self, controller):
         get_Entry1 = self.entry1.get()
         get_Entry2 = self.entry2.get()
-        print('get_Entry1 = ', get_Entry1)
-        print('get_Entry2 = ', get_Entry2)
         search_list = FindPatient(FirstName=get_Entry1, LastName=get_Entry2)
         if len(search_list) == 0:
             self.destroy()
@@ -533,11 +467,4 @@ class patient_drop_down:
     def VisitorDoctorNationalNumber_changed(self, event):
         msg = f'You selected {self.VisitorDoctorNationalNumber_cb.get()}!'
         showinfo(title='Result', message=msg)
-        print(list(filter(lambda x:  x.id == int(self.VisitorDoctorNationalNumber_cb.get(
-        ).split('.')[0]), LoadDoctors()))[0].NationalNumber)
-        # print(self.VisitorDoctorNationalNumber_cb.get().split('.')[0])
-        # print(list(filter(lambda x:  x.NationalNumber , LoadDoctors()))[1])
 
-
-VisitorDoctorNationalNumber_list = list(
-    map(lambda x: f'{x.id}. Dr.{x.FirstName} {x.LastName}', LoadDoctors()))

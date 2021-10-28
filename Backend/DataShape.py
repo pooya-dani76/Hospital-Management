@@ -67,22 +67,26 @@ class Doctor(Human):
         DeleteDoctor(self.id)
         Doctors = list(filter(lambda x: x[5] == self.Type, AllDoctors()))
         if len(Doctors) > 0:
-            for DoctorPatient in list(filter(lambda x: x[6] == self.NationalNumber, AllPatients())):
-                PatientTemp = Patient(id=DoctorPatient[0], NationalNumber=DoctorPatient[1], FirstName=DoctorPatient[2],
-                                      LastName=DoctorPatient[3], Sickness=DoctorPatient[4],
-                                      Age=DoctorPatient[5], VisitorDoctorNationalNumber=DoctorPatient[6])
-                DoctorTemp = random.choice(Doctors)
-                PatientTemp.Update(NationalNumber=DoctorPatient[1], FirstName=DoctorPatient[2],
-                                   LastName=DoctorPatient[3], Sickness=DoctorPatient[4],
-                                   Age=DoctorPatient[5], VisitorDoctorNationalNumber=DoctorTemp[1])
+            DoctorTemp = random.choice(Doctors)
+            SearchAndUpdateVisitorDoctors(OldVisitorDoctorNationalNumber=self.NationalNumber,\
+                NewVisitorDoctorNationalNumber=DoctorTemp[1])
+            # for DoctorPatient in list(filter(lambda x: x[6] == self.NationalNumber, AllPatients())):
+            #     PatientTemp = Patient(id=DoctorPatient[0], NationalNumber=DoctorPatient[1], FirstName=DoctorPatient[2],
+            #                           LastName=DoctorPatient[3], Sickness=DoctorPatient[4],
+            #                           Age=DoctorPatient[5], VisitorDoctorNationalNumber=DoctorPatient[6])
+            #     DoctorTemp = random.choice(Doctors)
+            #     PatientTemp.Update(NationalNumber=DoctorPatient[1], FirstName=DoctorPatient[2],
+            #                        LastName=DoctorPatient[3], Sickness=DoctorPatient[4],
+            #                        Age=DoctorPatient[5], VisitorDoctorNationalNumber=DoctorTemp[1])
 
         else:
-            for DoctorPatient in list(filter(lambda x: x[6] == self.NationalNumber, AllPatients())):
-                PatientTemp = Patient(id=DoctorPatient[0], NationalNumber=DoctorPatient[1], FirstName=DoctorPatient[2],
-                                      LastName=DoctorPatient[3], Sickness=DoctorPatient[4],
-                                      Age=DoctorPatient[5], VisitorDoctorNationalNumber=DoctorPatient[6])
-                PatientTemp.Delete
-                del PatientTemp
+            SearchAndDeleteVisitorDoctors(VisitorDoctorNationalNumber=self.NationalNumber)
+            # for DoctorPatient in list(filter(lambda x: x[6] == self.NationalNumber, AllPatients())):
+            #     PatientTemp = Patient(id=DoctorPatient[0], NationalNumber=DoctorPatient[1], FirstName=DoctorPatient[2],
+            #                           LastName=DoctorPatient[3], Sickness=DoctorPatient[4],
+            #                           Age=DoctorPatient[5], VisitorDoctorNationalNumber=DoctorPatient[6])
+            #     PatientTemp.Delete
+            #     del PatientTemp
 
     def Update(self, NationalNumber: str, FirstName: str, LastName: str, Age: int, Type: str):
         """Update This Doctor Info With Given Info

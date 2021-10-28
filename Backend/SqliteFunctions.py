@@ -135,7 +135,6 @@ def SearchDoctor(NationalNumber="", FirstName="", LastName="", Age="", Type="") 
     conn.close()
     return Doctors
 
-
 ######################### Medicines Operators ###############################
 
 
@@ -231,8 +230,8 @@ def AllPatients() -> list:
     return Patients
 
 
-def InsertPatient(NationalNumber: str, FirstName: str, LastName: str, Sickness: str, Age: int,\
-     VisitorDoctorNationalNumber: str) -> None:
+def InsertPatient(NationalNumber: str, FirstName: str, LastName: str, Sickness: str, Age: int,
+                  VisitorDoctorNationalNumber: str) -> None:
     """Add a New Patient to ```Patients``` Table
 
     Args:
@@ -251,8 +250,8 @@ def InsertPatient(NationalNumber: str, FirstName: str, LastName: str, Sickness: 
     conn.close()
 
 
-def UpdatePatient(id: int,NationalNumber: str, FirstName: str, LastName: str, Sickness: str, Age: int,\
-     VisitorDoctorNationalNumber: str) -> None:
+def UpdatePatient(id: int, NationalNumber: str, FirstName: str, LastName: str, Sickness: str, Age: int,
+                  VisitorDoctorNationalNumber: str) -> None:
     """Update a Patient Info From ```Patients``` Table
 
     Args:
@@ -286,13 +285,14 @@ def DeletePatient(NationalNumber: int) -> None:
         id (int): id of Patient in ```Patients``` Table
     """
     cur, conn = ConnectSqlite()
-    cur.execute('''DELETE FROM Patients WHERE NationalNumber=?''', (NationalNumber,))
+    cur.execute('''DELETE FROM Patients WHERE NationalNumber=?''',
+                (NationalNumber,))
     conn.commit()
     conn.close()
 
 
-def SearchPatient(NationalNumber="", FirstName="", LastName="", \
-    Sickness="", Age="", VisitorDoctorNationalNumber="") -> list:
+def SearchPatient(NationalNumber="", FirstName="", LastName="",
+                  Sickness="", Age="", VisitorDoctorNationalNumber="") -> list:
     """Search a Patient Info In ```Patients``` Table
 
     Args:
@@ -311,11 +311,23 @@ def SearchPatient(NationalNumber="", FirstName="", LastName="", \
     Sickness LIKE ? AND 
     Age LIKE ? AND 
     VisitorDoctorNationalNumber LIKE ?''',
-                ('%' + NationalNumber + '%', '%' + FirstName + '%', '%' + LastName + '%', '%' + Sickness + '%',\
-                     '%' + Age + '%', '%' + VisitorDoctorNationalNumber + '%'))
+                ('%' + NationalNumber + '%', '%' + FirstName + '%', '%' + LastName + '%', '%' + Sickness + '%',
+                 '%' + Age + '%', '%' + VisitorDoctorNationalNumber + '%'))
     Patients = cur.fetchall()
     conn.close()
     return Patients
 
+def SearchAndDeleteVisitorDoctors(VisitorDoctorNationalNumber: str):
+    Cur, Conn = ConnectSqlite()
+    Cur.execute("""DELETE FROM Patients WHERE VisitorDoctorNationalNumber LIKE ?""",
+                ('%'+VisitorDoctorNationalNumber+'%'))
+    Conn.close()
 
-CreateTables() 
+
+def SearchAndUpdateVisitorDoctors(NewVisitorDoctorNationalNumber: str, OldVisitorDoctorNationalNumber: str):
+    Cur, Conn = ConnectSqlite()
+    Cur.execute("""UPDATE Patients SET VisitorDoctorNationalNumber=? WHERE VisitorDoctorNationalNumber=?""",
+                (NewVisitorDoctorNationalNumber, OldVisitorDoctorNationalNumber))
+    Conn.close()
+    
+CreateTables()

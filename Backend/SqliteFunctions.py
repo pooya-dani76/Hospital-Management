@@ -1,3 +1,8 @@
+import sys
+
+sys.path.append('../Design')
+sys.path.append('../')
+
 import sqlite3
 
 
@@ -317,10 +322,11 @@ def SearchPatient(NationalNumber="", FirstName="", LastName="",
     conn.close()
     return Patients
 
+
 def SearchAndDeleteVisitorDoctors(VisitorDoctorNationalNumber: str):
     Cur, Conn = ConnectSqlite()
-    Cur.execute("""DELETE FROM Patients WHERE VisitorDoctorNationalNumber LIKE ?""",
-                ('%'+VisitorDoctorNationalNumber+'%'))
+    Cur.execute("""DELETE FROM Patients WHERE VisitorDoctorNationalNumber=?""",(VisitorDoctorNationalNumber,))
+    Conn.commit()            
     Conn.close()
 
 
@@ -328,6 +334,7 @@ def SearchAndUpdateVisitorDoctors(NewVisitorDoctorNationalNumber: str, OldVisito
     Cur, Conn = ConnectSqlite()
     Cur.execute("""UPDATE Patients SET VisitorDoctorNationalNumber=? WHERE VisitorDoctorNationalNumber=?""",
                 (NewVisitorDoctorNationalNumber, OldVisitorDoctorNationalNumber))
+    Conn.commit()
     Conn.close()
-    
+
 CreateTables()

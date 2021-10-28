@@ -1,3 +1,8 @@
+import sys
+
+sys.path.append('../Design')
+sys.path.append('../')
+
 from SqliteFunctions import *
 
 TypeList = ['General Practitioner',

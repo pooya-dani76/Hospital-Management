@@ -1,6 +1,10 @@
-from SqliteFunctions import *
-from Consts import *
 import random
+from Consts import *
+from SqliteFunctions import *
+import sys
+
+sys.path.append('../Design')
+sys.path.append('../')
 
 
 class Human:
@@ -68,8 +72,8 @@ class Doctor(Human):
         Doctors = list(filter(lambda x: x[5] == self.Type, AllDoctors()))
         if len(Doctors) > 0:
             DoctorTemp = random.choice(Doctors)
-            SearchAndUpdateVisitorDoctors(OldVisitorDoctorNationalNumber=self.NationalNumber,\
-                NewVisitorDoctorNationalNumber=DoctorTemp[1])
+            SearchAndUpdateVisitorDoctors(OldVisitorDoctorNationalNumber=self.NationalNumber,
+                                          NewVisitorDoctorNationalNumber=DoctorTemp[1])
             # for DoctorPatient in list(filter(lambda x: x[6] == self.NationalNumber, AllPatients())):
             #     PatientTemp = Patient(id=DoctorPatient[0], NationalNumber=DoctorPatient[1], FirstName=DoctorPatient[2],
             #                           LastName=DoctorPatient[3], Sickness=DoctorPatient[4],
@@ -80,7 +84,8 @@ class Doctor(Human):
             #                        Age=DoctorPatient[5], VisitorDoctorNationalNumber=DoctorTemp[1])
 
         else:
-            SearchAndDeleteVisitorDoctors(VisitorDoctorNationalNumber=self.NationalNumber)
+            SearchAndDeleteVisitorDoctors(
+                VisitorDoctorNationalNumber=self.NationalNumber)
             # for DoctorPatient in list(filter(lambda x: x[6] == self.NationalNumber, AllPatients())):
             #     PatientTemp = Patient(id=DoctorPatient[0], NationalNumber=DoctorPatient[1], FirstName=DoctorPatient[2],
             #                           LastName=DoctorPatient[3], Sickness=DoctorPatient[4],
@@ -257,9 +262,11 @@ class Medicine:
             tuple(str, bool): if Updating Data Encountered an Error(Error Message, False) 
         """
         try:
-            CheckMedicineInput(Name=self.Name, Stock=NumberOfSold, Description=self.Description)
+            CheckMedicineInput(
+                Name=self.Name, Stock=NumberOfSold, Description=self.Description)
             # self.Stock -= int(NumberOfSold)
-            CheckMedicineInput(Name=self.Name, Stock=self.Stock - int(NumberOfSold), Description=self.Description)
+            CheckMedicineInput(Name=self.Name, Stock=self.Stock -
+                               int(NumberOfSold), Description=self.Description)
             self.Stock -= int(NumberOfSold)
             return True
             # UpdateMedicine(self.id, self.Name, self.Stock, self.Description)
@@ -277,7 +284,8 @@ class Medicine:
             tuple(str, bool): if Updating Data Encountered an Error(Error Message, False) 
         """
         try:
-            CheckMedicineInput(Name=self.Name, Stock=NumberOfBought, Description=self.Description)
+            CheckMedicineInput(
+                Name=self.Name, Stock=NumberOfBought, Description=self.Description)
             self.Stock += int(NumberOfBought)
             # UpdateMedicine(self.id, self.Name, self.Stock, self.Description)
             return True
@@ -296,7 +304,7 @@ class Medicine:
             bool: if Data Correctly Added to Sqlite Table
             tuple(str, bool): if Updating Data Encountered an Error(Error Message, False) 
         """
-        
+
         self.Name = Name
         self.Stock = Stock
         self.Description = Description

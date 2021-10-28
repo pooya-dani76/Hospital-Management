@@ -1,3 +1,5 @@
+import sys
+sys.path.append('../Backend')
 from tkinter import *
 from tkinter.font import BOLD
 from Pages_Help import pages_help

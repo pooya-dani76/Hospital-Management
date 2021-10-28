@@ -1,3 +1,8 @@
+import sys
+
+sys.path.append('./Design')
+sys.path.append('./Backend')
+
 from tkinter import *
 from Hospital_Page import *
 from Patient_Page import *

@@ -2,6 +2,9 @@ from tkinter import *
 from tkinter.font import BOLD
 from DesignFunctions import *
 
+patient_list = []
+doctor_list = []
+drug_list = []
 
 def backGround_image_and_text(self, photo, text):
     self.backgrandImage = PhotoImage(file=photo)
@@ -18,7 +21,6 @@ def labels(Canvas, Text, x, y, font_size):
                        font=("Times New Roman", font_size, BOLD), activefill='blue',
                        disabledfill='red', fill='green')
 
-
 # [y.NationalNumber  for y in mylist].index(x.NationalNumber)+1
 
 def update_doctors_to_dropDown():
@@ -26,13 +28,3 @@ def update_doctors_to_dropDown():
     VisitorDoctorNationalNumber_list = list(
         map(lambda x: f'{x.id}. Dr.{x.FirstName} {x.LastName}', LoadDoctors()))
     return VisitorDoctorNationalNumber_list
-
-
-patient_list = []
-
-
-doctor_list = []
-
-drug_list = []
-# selected_indices = None
-# patient_list = LoadPatients()
